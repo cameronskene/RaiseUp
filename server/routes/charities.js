@@ -1,36 +1,65 @@
 //// CHARITY ROUTES //// TO EDIT
 
 var express = require('express');
-const Country = require('../models/country')
+const Charity = require('../models/charity')
 
 var router = express.Router();
 
-// Route to get all countries
+// const cloudinary = require('cloudinary');
+// const cloudinaryStorage = require('multer-storage-cloudinary');
+// const multer = require('multer');
+
+// const storage = cloudinaryStorage({
+//   cloudinary,
+//   folder: 'my-images',
+//   allowedFormats: ['jpg', 'png', 'gif'],
+// });
+
+// const parser = multer({ storage });
+
+// Route to get all charities
 router.get('/', (req, res, next) => {
-  Country.find()
-    .then(countries => {
-      res.json(countries);
+  Charity.find()
+    .then(charities => {
+      res.json(charities);
+    })
+    .catch(err => next(err))
+});
+
+// route to find a charity by its id
+router.get('/:id', (req, res, next) => {
+  console.log(req.params.id)
+  let id = req.params.id 
+  
+  Charity.findById(id)
+    .then(charity => {
+      console.log(charity)
+      res.json(charity);
     })
     .catch(err => next(err))
 });
 
 
-// Route to get a static sample of countries
-router.get('/static-sample', (req, res, next) => {
-  res.json([{"capitals":[],"_id":"5a9ab1e751771a42c9af9a20","name":"France","__v":0},{"capitals":[],"_id":"5a9ab1f8a2dc8242cd54a87d","name":"France","__v":0},{"capitals":["[\"Paris\", \"Lyon\"]"],"_id":"5a9ab51fa2dc8242cd54a87e","name":"France","description":"Best country ever","__v":0},{"capitals":["Berlin","Munich"],"_id":"5a9ab5a8a2dc8242cd54a881","name":"Germany","description":"Second best country","__v":0},{"capitals":["Canberra"],"_id":"5a9ab7e6458133204b75d510","name":"Australia","area":7692024}])
-});
-
 // Route to add a country
 router.post('/', (req, res, next) => {
-  let {name, capitals, area, description} = req.body
-  Country.create({name, capitals, area, description})
-    .then(country => {
+  let {name, website, pictureUrl, description, sector} = req.body
+
+  Charity.create({name, website, pictureUrl, description, sector})
+    .then(charity => {
       res.json({
         success: true,
-        country
+        charity
       });
     })
     .catch(err => next(err))
 });
+
+
+// Route to add a picture on one user with Cloudinary
+// To perform the request in HTML:
+//   <form method="post" enctype="multipart/form-data" action="http://localhost:3030/api/users/first-user/pictures">
+//     <input type="file" name="picture" />
+//     <input type="submit" value="Upload" />
+//   </form>
 
 module.exports = router;

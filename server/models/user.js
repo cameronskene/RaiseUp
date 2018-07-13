@@ -14,6 +14,12 @@ const userSchema = new Schema({
 // Documentation: https://github.com/saintedlama/passport-local-mongoose
 userSchema.plugin(passportLocalMongoose, {
   usernameField: "email"
+}, {
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  },
+  usePushEach: true
 });
 
 module.exports = mongoose.model('User', userSchema);

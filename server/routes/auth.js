@@ -8,10 +8,10 @@ const config = require('../configs/index');
 
 router.post('/signup', (req, res, next) => {
   // extract the info we need from the body of the request
-  const { email, name, password } = req.body;
+  const { email, password, role } = req.body;
   const user = new User({
     email,
-    name
+    role
   });
 
   User.register(user, password, err => {
@@ -67,9 +67,9 @@ router.post('/login', (req, res, next) => {
 // If you use Postman, don't forget to add "Authorization" "Bearer <your-JWT>" (without "<" and ">")
 router.get('/secret', passport.authenticate("jwt", config.jwtSession), (req, res, next) => {
   res.json({
-    answerToLifeTheUniverseAndEverything: 42,
+    yourProject: "good idea",
     user: req.user
-  });
+  }); 
 });
 
 module.exports = router;

@@ -12,16 +12,21 @@ const errHandler = err => {
 export default {
   service: service,
   
-  getCountries() {
+  getCharities() {
     return service
-      .get('/countries')
+      .get('/charities')
       .then(res => res.data)
       .catch(errHandler);
   },
-
-  postCountries(data) {
+  getCharity(id) {
     return service
-      .post('/countries', data)
+      .get(`/charities/${id}`)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+  postCharities(data) {
+    return service
+      .post('/charities', data)
       .then(res => res.data)
       .catch(errHandler);
   },

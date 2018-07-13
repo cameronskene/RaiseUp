@@ -22,6 +22,12 @@ const materialSchema = new mongoose.Schema({
   sourceUrl: {type: String, required: [true, "You must provide a source for this material"]},
   _campaign: {type: Schema.Type.ObjectId, ref: "Campaign"}
 
+},{
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  },
+  usePushEach: true
 });
 
 const Material = mongoose.model('Material', materialSchema);

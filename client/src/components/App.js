@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Home';
-import Countries from './Countries';
-import AddCountry from './AddCountry';
+import Charities from './Charities';
+import AddCharity from './AddCharity';
 import Secret from './Secret';
 import Login from './Login';
 import Signup from './Signup';
+import Charity from './Charity';
 import api from '../api';
-import logo from '../logo.svg';
+
 import './App.css';
 
 class App extends Component {
@@ -23,27 +24,29 @@ class App extends Component {
     api.logout()
   }
 
-  render() {                
+  render() {  
+                 
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React Countries</h1>
+          <img src="https://i.redditmedia.com/F0RzgUdHUm8w4rdE42c5GVyR7GcZ0JhdgjesODEwRek.jpg?w=480&s=91c054a7d954398703a759264dcf7ce7" alt="logo" style={{height: "55%"}} />
+          <h1 className="App-title">Hello, Thomas. You are quite good at... turning me on.</h1>
           <Link to="/">Home</Link> 
-          <Link to="/countries">Countries</Link> 
-          <Link to="/add-country">Add country</Link> 
+          {api.isLoggedIn() && <Link to="/charities">Charities</Link>} 
+          {api.isLoggedIn() && <Link to="/add-charity">Add Charity</Link>} 
           {!api.isLoggedIn() && <Link to="/signup">Signup</Link> }
           {!api.isLoggedIn() && <Link to="/login">Login</Link> }
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link> }
-          <Link to="/secret">Secret</Link> 
+          {/* <Link to="/secret">Secret</Link>  */}
         </header>
         <Switch>
           <Route path="/" exact component={Home} />
-          <Route path="/countries" component={Countries} />
-          <Route path="/add-country" component={AddCountry} />
+          <Route path="/charities" exact component={Charities} />
+          <Route path="/add-charity" component={AddCharity} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/secret" component={Secret} />
+          <Route path="/charities/:id" component={Charity} />
+          {/* <Route path="/secret" component={Secret} /> */}
           <Route render={() => <h2>404</h2>} />
         </Switch>        
       </div>

@@ -14,6 +14,7 @@ var User = require('./models/user');
 var authRoutes = require('./routes/auth');
 var countriesRoutes = require('./routes/countries');
 var usersRoutes = require('./routes/users');
+var charitiesRoutes = require('./routes/charities');
 
 require('./configs/database');
 require('./configs/cloudinary');
@@ -63,6 +64,7 @@ passport.use(strategy);
 // List all your API routes
 app.use('/api', authRoutes);
 app.use('/api/countries', countriesRoutes);
+app.use('/api/charities', charitiesRoutes);
 app.use('/api/users', usersRoutes);
 
 

@@ -3,7 +3,8 @@ const { Schema } = mongoose;
 
 const charitySchema = new mongoose.Schema({  
   name: {
-    type: String,
+    type: String, 
+    unique: [true, "Please provide a unique charity name"],
     required: [true, 'The charity name is required']
   },
   sector: {
@@ -37,6 +38,12 @@ const charitySchema = new mongoose.Schema({
   _campaigns: [{
     type: Schema.Types.ObjectId, ref: "Campaign"
   }],
+},{
+  timestamps: {
+    createdAt: "created_at",
+    updatedAt: "updated_at"
+  },
+  usePushEach: true
 });
 
 const Charity = mongoose.model('Charity', charitySchema);
