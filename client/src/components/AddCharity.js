@@ -14,33 +14,41 @@ class AddCharity extends Component {
       description: "",
       website: "",
       pictureUrl: "",
-      message: null
+      message: null,
+      file: null
     }
   }
 
   handleInputChange(stateFieldName, event) {
+    console.log("handleInputChange");
+    
     let newState = {}
-    newState[stateFieldName] = event.target.value
-  
+    if (stateFieldName === "file"){
+      newState.file = event.target.files[0]
+    }
+    else {
+      newState[stateFieldName] = event.target.value
+    }
     this.setState(newState)
   }
 
   handleClick(e) {
     e.preventDefault()
-    console.log(this.state.name, this.state.description)
+
     let data = {
       name: this.state.name,
       sector: this.state.sector,
       description: this.state.description,
       website: this.state.website,
-      pictureUrl: this.state.pictureUrl,
+      // try changing back to this.state.pictureUrl
+      pictureUrl: this.state.file,
       message: null
     }
     api.postCharities(data)
       .then(result => {
-        console.log('SUCCESS!')
+        // console.log('SUCCESS!')
         this.setState({
-          
+          file: null,
           name: "",
           sector: "Education & Research",
           description: "",  
@@ -62,7 +70,7 @@ class AddCharity extends Component {
     return (
       <div className="AddCharity">
         <h2>Add Charity</h2>
-        <form>
+        <form encType="multipart/form-data">
           Charity Name: <input type="text" value={this.state.name} onChange={(e) => {this.handleInputChange("name", e)}} /> <br/>
           Sector 
           <select name="Sector" value={this.state.sector} onChange={(e) => {this.handleInputChange("sector", e)}}>
@@ -79,7 +87,9 @@ class AddCharity extends Component {
           
            <br/>
           Website <input type="text" value={this.state.website} onChange={(e) => {this.handleInputChange("website", e)}}  /> <br/>
-          Picture/ Logo <input type="text" value={this.state.pictureUrl} onChange={(e) => {this.handleInputChange("pictureUrl", e)}}  /> <br/>
+          Picture/ Logo <input type="text" value={this.state.pictureUrl} onChange={(e) => {this.handleInputChange("pictureUrl", e)}}  /> 
+          <input type="file" name="picture" onChange={(e) => {this.handleInputChange("file", e)}} />
+          <br/>
           Description <textarea value={this.state.description} cols="30" rows="10" onChange={(e) => {this.handleInputChange("description", e)}} ></textarea> <br/>
           <button onClick={(e) => this.handleClick(e)}>Create charity</button>
         </form>

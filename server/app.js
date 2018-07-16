@@ -71,8 +71,8 @@ passport.use(strategy);
 app.use('/api', authRoutes);
 app.use('/api/countries', countriesRoutes);
 app.use('/api/charities', charitiesRoutes);
-app.use('/api/campaigns', campaignsRoutes);
-app.use('/api/materials', materialsRoutes);
+// app.use('/api/campaigns', campaignsRoutes);
+// app.use('/api/materials', materialsRoutes);
 app.use('/api/users', usersRoutes);
 
 

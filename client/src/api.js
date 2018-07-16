@@ -11,6 +11,20 @@ const errHandler = err => {
 
 export default {
   service: service,
+
+  // addPicture(file) {
+  //   const formData = new FormData();
+  //   formData.append("pictureUrl", file)
+  //   console.log('DEBUG formData', formData.get("pictureUrl"));
+  //   return service
+  //     .post("charities/picture", formData, {
+  //       headers: {
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     })
+  //     .then(res => res.data)
+  //     .catch(errHandler);
+  // },
   
   getCharities() {
     return service
@@ -25,8 +39,18 @@ export default {
       .catch(errHandler);
   },
   postCharities(data) {
+
+    const formData = new FormData();
+    
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key])
+    });
     return service
-      .post('/charities', data)
+      .post('/charities', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
       .then(res => res.data)
       .catch(errHandler);
   },
@@ -110,19 +134,5 @@ export default {
 
   isLoggedIn() {
     return localStorage.getItem('user') != null
-  },
-
-
-  addPicture(file) {
-    const formData = new FormData();
-    formData.append("picture", file)
-    return service
-      .post('/users/first-user/pictures', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(res => res.data)
-      .catch(errHandler);
   },
 };
