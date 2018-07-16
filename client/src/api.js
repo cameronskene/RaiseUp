@@ -39,7 +39,6 @@ export default {
       .catch(errHandler);
   },
   postCharities(data) {
-
     const formData = new FormData();
     
     Object.keys(data).forEach(key => {
@@ -63,12 +62,25 @@ export default {
   },
   
   postCampaigns(data) {
-    // console.log("DATA in api.js: ", data)
+    const formData = new FormData();
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key])
+    });
     return service
-      .post(`/charities/${data._charity}/campaigns/add`, data)
-      .then(res => { console.log("res.data in api.js: ", res.data);
-        return res.data})
+      .post(`/charities/${data._charity}/campaigns/add`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => res.data)
       .catch(errHandler);
+
+
+    // return service
+    //   .post(`/charities/${data._charity}/campaigns/add`, data)
+    //   .then(res => { console.log("res.data in api.js: ", res.data);
+    //     return res.data})
+    //   .catch(errHandler);
   },
 
   getMaterial(charid, campid, mateid) {
@@ -80,11 +92,24 @@ export default {
   },
 
   postMaterials(data) {
-    console.log("DATA in api.js: ", data)
+    const formData = new FormData();
+    Object.keys(data).forEach(key => {
+      formData.append(key, data[key])
+    });
+    
     return service
-      .post(`/charities/${data._charity}/campaigns/${data._campaign}/materials/add`, data)
-      .then(res => { res.data })
+      .post(`/charities/${data._charity}/campaigns/${data._campaign}/materials/add`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => res.data)
       .catch(errHandler);
+
+    // return service
+    //   .post(`/charities/${data._charity}/campaigns/${data._campaign}/materials/add`, data)
+    //   .then(res => { res.data })
+    //   .catch(errHandler);
   },
   
   getSecret() {

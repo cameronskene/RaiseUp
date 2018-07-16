@@ -43,12 +43,12 @@ router.get("/:id", (req, res, next) => {
 
 // Route to add a charity
 router.post("/", parser.single('pictureUrl'), (req, res, next) => {
-  console.log("req.file", req.file);
+  // console.log("req.file", req.file);
   let pictureUrl = req.file.url
   
   var { name, website, description, sector } = req.body;
   // console.log("req body pictureUrl: ", req.body.pictureUrl)
-  console.log("PICTURE URL IN ROUTE: ", pictureUrl)
+  // console.log("PICTURE URL IN ROUTE: ", pictureUrl)
   Charity.create({ name, website, description, sector, pictureUrl })
     .then(charity => {
       res.json({
@@ -60,15 +60,18 @@ router.post("/", parser.single('pictureUrl'), (req, res, next) => {
 });
 
 // Route to add a campaign to a charity
-router.post("/:id/campaigns/add", (req, res, next) => {
+router.post("/:id/campaigns/add",parser.single('pictureUrl'), (req, res, next) => {
+  // console.log("req.file", req.file);
+  let pictureUrl = req.file.url
+  
   // charity ID
   let id = req.params.id;
-  console.log("id: ", id);
+  // console.log("id: ", id);
   // get campaign data from form
-  console.log("req.body in campaigns add route: ", req.body);
+  // console.log("req.body in campaigns add route: ", req.body);
   let {
     title,
-    pictureUrl,
+    // pictureUrl,
     description,
     dateRangeStart,
     dateRangeEnd,
@@ -87,7 +90,7 @@ router.post("/:id/campaigns/add", (req, res, next) => {
     agencies
   })
     .then(campaign => {
-      console.log("campaign._charity: ", campaign._charity);
+      // console.log("campaign._charity: ", campaign._charity);
       // then update the corresponding charity._campaigns array with the objid of the campaign
       Charity.findByIdAndUpdate(campaign._charity, {
         $push: { _campaigns: campaign._id }
@@ -133,14 +136,17 @@ router.get("/:charid/campaigns/:campid/materials/:mateid", (req, res, next) => {
 
 
 // post new material for a campaign
-router.post("/:charid/campaigns/:campid/materials/add", (req, res, next) => {
+router.post("/:charid/campaigns/:campid/materials/add", parser.single('pictureUrl'), (req, res, next) => {
+  console.log("req.file in materials POST", req.file);
+  let pictureUrl = req.file.url
+  
   // campaign ID
   let campid = req.params.campid;
   let charid = req.params.charid;
 
   let {
     title,
-    pictureUrl,
+    // pictureUrl,
     description,
     channels,
     mediaType,

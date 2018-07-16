@@ -21,23 +21,31 @@ class AddCampaign extends Component {
       description: "",
       agencies: [],
       pictureUrl: "",
-      message: null
+      message: null,
+      file: null
     }
   }
 
   handleInputChange(stateFieldName, event) {
     let newState = {}
     let agency = ""
-    if (stateFieldName !== "agencies") {
-      newState[stateFieldName] = event.target.value
+    
+    if (stateFieldName === "file"){
+      newState.file = event.target.files[0]
     }
     else {
-      // clear array of partially complete agency titles
-      newState.agencies = []
-      agency = event.target.value
-      // push agency name
-      newState.agencies.push(agency)
+      if (stateFieldName !== "agencies") {
+        newState[stateFieldName] = event.target.value
+      }
+      else {
+        // clear array of partially complete agency titles
+        newState.agencies = []
+        agency = event.target.value
+        // push agency name
+        newState.agencies.push(agency)
+      }
     }
+    
     this.setState(newState)
   }
 
@@ -51,7 +59,7 @@ class AddCampaign extends Component {
       dateRangeEnd: this.state.dateRangeEnd,
       description: this.state.description,
       agencies: this.state.agencies,
-      pictureUrl: this.state.pictureUrl,
+      pictureUrl: this.state.file,
       message: null
     }
     // console.log('DATA in handleClick: ', data)
@@ -67,7 +75,8 @@ class AddCampaign extends Component {
           description: "",
           agencies: [],
           pictureUrl: "",
-          message: `Your campaign '${this.state.title}' has been created`
+          message: `Your campaign '${this.state.title}' has been created`,
+          file: null
         })
         setTimeout(() => {
           this.setState({
@@ -121,7 +130,9 @@ class AddCampaign extends Component {
                     value={this.state.dateRangeEnd} 
                     onChange={(e) => {this.handleInputChange("dateRangeEnd", e)}} />
           <br/>
-          Campaign Preview Image URL: <input type="text" value={this.state.pictureUrl} onChange={(e) => {this.handleInputChange("pictureUrl", e)}}  /> <br/>
+          Campaign Preview Image URL: <input type="text" value={this.state.pictureUrl} onChange={(e) => {this.handleInputChange("pictureUrl", e)}}  /> 
+          <input type="file" name="picture" onChange={(e) => {this.handleInputChange("file", e)}} />
+          <br/>
           Description: <textarea value={this.state.description} cols="30" rows="10" onChange={(e) => {this.handleInputChange("description", e)}} ></textarea> <br/>
           Agencies: <input type="text" value={this.state.agencies} onChange={(e) => {this.handleInputChange("agencies", e)}}  />
           <button onClick={(e) => this.handleClick(e)}>Create campaign</button>

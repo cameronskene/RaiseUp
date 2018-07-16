@@ -23,13 +23,20 @@ class AddMaterial extends Component {
       mediaType: "Video",
       pictureUrl: "",
       sourceUrl: "",
-      message: null
+      message: null,
+      file: null,
     }
   }
 
   handleInputChange(stateFieldName, event) {
     let newState = {}
-    newState[stateFieldName] = event.target.value
+    if (stateFieldName === "file"){
+      newState.file = event.target.files[0]
+    }
+    else {
+      newState[stateFieldName] = event.target.value
+    }
+    // newState[stateFieldName] = event.target.value
     this.setState(newState)
   }
 
@@ -44,11 +51,11 @@ class AddMaterial extends Component {
       dateRangeEnd: this.state.dateRangeEnd,
       description: this.state.description,
       mediaType: this.state.mediaType,
-      pictureUrl: this.state.pictureUrl,
+      pictureUrl: this.state.file,
       sourceUrl: this.state.sourceUrl,
       message: null
     }
-    // console.log('DATA in handleClick: ', data)
+    
     api.postMaterials(data)
       .then(result => {
         console.log('SUCCESS!')
@@ -61,7 +68,8 @@ class AddMaterial extends Component {
           mediaType: "Video",
           pictureUrl: "",
           sourceUrl: "",
-          message: `Your campaign '${this.state.title}' has been created`
+          message: `Your campaign '${this.state.title}' has been created`,
+          file: null
         })
         setTimeout(() => {
           this.setState({
@@ -110,7 +118,9 @@ class AddMaterial extends Component {
                     value={this.state.dateRangeEnd} 
                     onChange={(e) => {this.handleInputChange("dateRangeEnd", e)}} />
           <br/>
-          Material Preview Image URL: <input type="text" value={this.state.pictureUrl} onChange={(e) => {this.handleInputChange("pictureUrl", e)}}  /> <br/>
+          Material Preview Image URL: <input type="text" value={this.state.pictureUrl} onChange={(e) => {this.handleInputChange("pictureUrl", e)}}  />
+          <input type="file" name="picture" onChange={(e) => {this.handleInputChange("file", e)}} />
+          <br/>
           Description: <textarea value={this.state.description} cols="30" rows="10" onChange={(e) => {this.handleInputChange("description", e)}} ></textarea> <br/>
            {// mediaType: 
             //   "Video",
