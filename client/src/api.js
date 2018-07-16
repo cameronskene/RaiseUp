@@ -30,7 +30,14 @@ export default {
       .then(res => res.data)
       .catch(errHandler);
   },
-  // DEBUG
+
+  getCampaign(charid, campid) {
+    return service
+      .get(`/charities/${charid}/campaigns/${campid}`)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+  
   postCampaigns(data) {
     // console.log("DATA in api.js: ", data)
     return service
@@ -38,7 +45,22 @@ export default {
       .then(res => { console.log("res.data in api.js: ", res.data);
         return res.data})
       .catch(errHandler);
-      
+  },
+
+  getMaterial(charid, campid, mateid) {
+    console.log("getMaterial api.js method, charid: ", charid)
+    return service
+      .get(`/charities/${charid}/campaigns/${campid}/materials/${mateid}`)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
+
+  postMaterials(data) {
+    console.log("DATA in api.js: ", data)
+    return service
+      .post(`/charities/${data._charity}/campaigns/${data._campaign}/materials/add`, data)
+      .then(res => { res.data })
+      .catch(errHandler);
   },
   
   getSecret() {

@@ -8,3 +8,13 @@ body {
 .Charity > img {
   height: 15vh;
 }
+
+/* COMPONENT: CAMPAIGN */
+.Campaign > img {
+  height: 15vh;
+}
+
+/* COMPONENT: MATERIAL */
+.Material > img {
+  height: 30vh;
+}

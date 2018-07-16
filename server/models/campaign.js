@@ -23,7 +23,7 @@ const campaignSchema = new mongoose.Schema({
   benchmarks: {type: Array, default: []},
   agencies: {type: Array, default: []},
   _charity: {type: Schema.Types.ObjectId, ref: "Charity"},
-  _material: [{type: Schema.Types.ObjectId, ref: "Material"}]
+  _materials: [{type: Schema.Types.ObjectId, ref: "Material"}]
 
 },{
   timestamps: {
