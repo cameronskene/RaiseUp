@@ -40,6 +40,7 @@ class AddCharity extends Component {
       .then(result => {
         console.log('SUCCESS!')
         this.setState({
+          
           name: "",
           sector: "Education & Research",
           description: "",  
@@ -62,11 +63,6 @@ class AddCharity extends Component {
       <div className="AddCharity">
         <h2>Add Charity</h2>
         <form>
-          {/*   name: this.state.name,
-      sector: this.state.sector,
-      description: this.state.description,
-      website: this.state.website,
-      pictureUrl: this.state.pictureUrl  */}
           Charity Name: <input type="text" value={this.state.name} onChange={(e) => {this.handleInputChange("name", e)}} /> <br/>
           Sector 
           <select name="Sector" value={this.state.sector} onChange={(e) => {this.handleInputChange("sector", e)}}>

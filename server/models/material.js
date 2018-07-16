@@ -20,7 +20,7 @@ const materialSchema = new mongoose.Schema({
     "Text",
   ], required: [true, "Please select the media form"]},
   sourceUrl: {type: String, required: [true, "You must provide a source for this material"]},
-  _campaign: {type: Schema.Type.ObjectId, ref: "Campaign"}
+  _campaign: {type: Schema.Types.ObjectId, ref: "Campaign"}
 
 },{
   timestamps: {

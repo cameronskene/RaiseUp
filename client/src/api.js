@@ -30,6 +30,16 @@ export default {
       .then(res => res.data)
       .catch(errHandler);
   },
+  // DEBUG
+  postCampaigns(data) {
+    // console.log("DATA in api.js: ", data)
+    return service
+      .post(`/charities/${data._charity}/campaigns/add`, data)
+      .then(res => { console.log("res.data in api.js: ", res.data);
+        return res.data})
+      .catch(errHandler);
+      
+  },
   
   getSecret() {
     return service

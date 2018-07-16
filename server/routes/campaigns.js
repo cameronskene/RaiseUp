@@ -1,31 +1,24 @@
-//// CAMPAIGN ROUTES //// TO EDIT
+//// CAMPAIGN ROUTES 
 
 var express = require('express');
-const Country = require('../models/country')
+// const Charity = require('../models/charity')
+const Campaign = require('../models/campaign')
 
 var router = express.Router();
 
-// Route to get all countries
+// Route to get all Campaigns -- this is used for the home page prior to any specific queries from the user
 router.get('/', (req, res, next) => {
-  Country.find()
-    .then(countries => {
-      res.json(countries);
+  Campaign.find()
+    .then(campaigns => {
+      res.json(campaigns);
     })
     .catch(err => next(err))
 });
 
 
-// Route to add a country
-router.post('/', (req, res, next) => {
-  let {name, capitals, area, description} = req.body
-  Country.create({name, capitals, area, description})
-    .then(country => {
-      res.json({
-        success: true,
-        country
-      });
-    })
-    .catch(err => next(err))
-});
+// TO DO: Route to search for Campaign by query
+
+
+
 
 module.exports = router;

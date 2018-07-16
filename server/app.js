@@ -15,6 +15,8 @@ var authRoutes = require('./routes/auth');
 var countriesRoutes = require('./routes/countries');
 var usersRoutes = require('./routes/users');
 var charitiesRoutes = require('./routes/charities');
+var campaignsRoutes = require('./routes/campaigns');
+var materialsRoutes = require('./routes/materials');
 
 require('./configs/database');
 require('./configs/cloudinary');
@@ -26,7 +28,11 @@ app.use(cors());
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // Set the public folder to "~/client/build/"
 // Example: http://localhost:3030/favicon.ico => Display "~/client/build/favicon.ico"
@@ -65,7 +71,10 @@ passport.use(strategy);
 app.use('/api', authRoutes);
 app.use('/api/countries', countriesRoutes);
 app.use('/api/charities', charitiesRoutes);
+app.use('/api/campaigns', campaignsRoutes);
+app.use('/api/materials', materialsRoutes);
 app.use('/api/users', usersRoutes);
+
 
 
 // For any routes that starts with "/api", catch 404 and forward to error handler

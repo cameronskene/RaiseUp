@@ -3,6 +3,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 import Home from './Home';
 import Charities from './Charities';
 import AddCharity from './AddCharity';
+import AddCampaign from './AddCampaign';
 import Secret from './Secret';
 import Login from './Login';
 import Signup from './Signup';
@@ -45,7 +46,8 @@ class App extends Component {
           <Route path="/add-charity" component={AddCharity} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/charities/:id" component={Charity} />
+          <Route path="/charities/:id" exact component={Charity} />
+          <Route path={"/charities/:id/campaigns/add"} component={AddCampaign} />
           {/* <Route path="/secret" component={Secret} /> */}
           <Route render={() => <h2>404</h2>} />
         </Switch>        
