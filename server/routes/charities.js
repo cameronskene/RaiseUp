@@ -4,6 +4,8 @@ var express = require("express");
 const Charity = require("../models/charity");
 const Campaign = require("../models/campaign");
 const Material = require("../models/material");
+const mongoose = require('mongoose');
+
 
 var router = express.Router();
 
@@ -39,16 +41,19 @@ router.get("/:id", (req, res, next) => {
     .catch(err => next(err));
 });
 
-
-
 // Route to add a charity
 router.post("/", parser.single('pictureUrl'), (req, res, next) => {
-  // console.log("req.file", req.file);
-  let pictureUrl = req.file.url
   
-  var { name, website, description, sector } = req.body;
-  // console.log("req body pictureUrl: ", req.body.pictureUrl)
-  // console.log("PICTURE URL IN ROUTE: ", pictureUrl)
+  let pictureUrl
+  let { name, website, description, sector } = req.body;
+  // this is dirty 
+  if (req.file) {
+    pictureUrl = req.file.url
+  }
+  else {
+     pictureUrl = req.body.pictureUrl;
+  }
+  
   Charity.create({ name, website, description, sector, pictureUrl })
     .then(charity => {
       res.json({
@@ -59,28 +64,55 @@ router.post("/", parser.single('pictureUrl'), (req, res, next) => {
     .catch(err => next(err));
 });
 
-// Route to add a campaign to a charity
-router.post("/:id/campaigns/add",parser.single('pictureUrl'), (req, res, next) => {
-  // console.log("req.file", req.file);
-  let pictureUrl = req.file.url
+// route to update a charity
+router.put("/:charid", parser.single('pictureUrl'), (req, res, next) => {
+  let charid = req.params.charid
+  let pictureUrl
+  let { name, website, description, sector } = req.body;
+  // this is dirty 
+  if (req.file) {
+    pictureUrl = req.file.url
+  }
+  else {
+     pictureUrl = req.body.pictureUrl;
+  }
   
+  Charity.findByIdAndUpdate(charid, { name, website, description, sector, pictureUrl })
+    .then(updatedCharity => {
+      res.json({
+        success: true,
+        updatedCharity
+      });
+    })
+    .catch(err => next(err));
+});
+
+// Route to add a campaign to a charity
+router.post("/:charid/campaigns/add",parser.single('pictureUrl'), (req, res, next) => {
   // charity ID
-  let id = req.params.id;
-  // console.log("id: ", id);
+  let charid = req.params.charid;
+  let pictureUrl
   // get campaign data from form
-  // console.log("req.body in campaigns add route: ", req.body);
   let {
     title,
-    // pictureUrl,
     description,
     dateRangeStart,
     dateRangeEnd,
     fundraisingType,
     agencies
-  } = req.body;
+  } = req.body; 
+
+  // this is dirty 
+  if (req.file) {
+    pictureUrl = req.file.url
+  }
+  else {
+     pictureUrl = req.body.pictureUrl;
+  }
+  
   // create said campaign passing charity ID
   Campaign.create({
-    _charity: id,
+    _charity: charid,
     title,
     pictureUrl,
     description,
@@ -90,7 +122,6 @@ router.post("/:id/campaigns/add",parser.single('pictureUrl'), (req, res, next) =
     agencies
   })
     .then(campaign => {
-      // console.log("campaign._charity: ", campaign._charity);
       // then update the corresponding charity._campaigns array with the objid of the campaign
       Charity.findByIdAndUpdate(campaign._charity, {
         $push: { _campaigns: campaign._id }
@@ -120,33 +151,75 @@ router.get("/:charid/campaigns/:campid", (req, res, next) => {
     .catch(err => next(err));
 });
 
-// get material info by its id
-router.get("/:charid/campaigns/:campid/materials/:mateid", (req, res, next) => {
-  // campaign ID
-  let mateid = req.params.mateid;
+// route to update a campaign
+router.put("/:charid/campaigns/:campid", parser.single('pictureUrl'), (req, res, next) => {
+  let charid = req.params.charid
+  let campid = req.params.campid
+  let pictureUrl
+  // get campaign data from form
+  let {
+    title,
+    description,
+    dateRangeStart,
+    dateRangeEnd,
+    fundraisingType,
+    agencies
+  } = req.body; 
+  // this is dirty 
+  if (req.file) {
+    pictureUrl = req.file.url
+  }
+  else {
+     pictureUrl = req.body.pictureUrl;
+  }
 
-  // then update the corresponding charity._campaigns array with the objid of the campaign
-  Material.findById(mateid)
-    .then(material => {
-      // success
-      res.json(material);
+  Campaign.findByIdAndUpdate(campid, {
+    _charity: charid,
+    title,
+    pictureUrl,
+    description,
+    dateRangeStart,
+    dateRangeEnd,
+    fundraisingType,
+    agencies
+  })
+    .then(updatedCampaign => {
+      res.json({
+        success: true,
+        updatedCampaign
+      });
     })
     .catch(err => next(err));
 });
 
+// route to delete a campaign (and all its child materials) DEBUG ADD ASYNC to forEach loop
+router.delete("/:charid/campaigns/:campid", (req, res, next) => {
+  // campaign ID
+  let campid = req.params.campid;
+  // remove Campaign
+  Campaign.findByIdAndRemove(campid)
+    .then(  (removedCampaign) => {
+      let promises = []
+      // remove each of its materials
+      removedCampaign._materials.forEach((element, i) => {
+        console.log("removing material: ", element) 
+        promises.push(Material.findByIdAndRemove(element))
+      })
+      return Promise.all(promises)
+    })
+    .then(materialRemoved => res.json({success:true}))
+    .catch(err => next(err));
+});
 
-// post new material for a campaign
+// post new material to a campaign
 router.post("/:charid/campaigns/:campid/materials/add", parser.single('pictureUrl'), (req, res, next) => {
-  console.log("req.file in materials POST", req.file);
-  let pictureUrl = req.file.url
-  
   // campaign ID
   let campid = req.params.campid;
   let charid = req.params.charid;
+  let pictureUrl
 
   let {
     title,
-    // pictureUrl,
     description,
     channels,
     mediaType,
@@ -154,6 +227,15 @@ router.post("/:charid/campaigns/:campid/materials/add", parser.single('pictureUr
     dateRangeStart,
     dateRangeEnd
   } = req.body;
+
+  // this is dirty 
+  if (req.file) {
+    pictureUrl = req.file.url
+  }
+  else {
+     pictureUrl = req.body.pictureUrl;
+  }
+
   // create said campaign passing charity ID
   Material.create({
     _charity: charid,
@@ -170,7 +252,6 @@ router.post("/:charid/campaigns/:campid/materials/add", parser.single('pictureUr
     .then(material => {
       // then update the corresponding charity._campaigns array with the objid of the campaign
       Campaign.findByIdAndUpdate(campid, { $push: { _materials: material._id } })
-        .catch(err => console.log(err))
         .then(result => {
           // success
           res.json({
@@ -178,6 +259,85 @@ router.post("/:charid/campaigns/:campid/materials/add", parser.single('pictureUr
             material
           });
         });
+    })
+    .catch(err => next(err));
+});
+
+// get material info by its id
+router.get("/:charid/campaigns/:campid/materials/:mateid", (req, res, next) => {
+  // campaign ID
+  let mateid = req.params.mateid;
+  // then update the corresponding charity._campaigns array with the objid of the campaign
+  Material.findById(mateid)
+    .then(material => {
+      // success
+      res.json(material);
+    })
+    .catch(err => next(err));
+});
+
+// route to update a material
+router.put("/:charid/campaigns/:campid/materials/:mateid", parser.single('pictureUrl'), (req, res, next) => {
+  let charid = req.params.charid
+  let campid = req.params.campid
+  let mateid = req.params.mateid
+  let pictureUrl
+  // get campaign data from form
+  let {
+    title,
+    description,
+    channels,
+    mediaType,
+    sourceUrl,
+    dateRangeStart,
+    dateRangeEnd
+  } = req.body; 
+  // this is dirty 
+  if (req.file) {
+    pictureUrl = req.file.url
+  }
+  else {
+     pictureUrl = req.body.pictureUrl;
+  }
+
+  Material.findByIdAndUpdate(mateid, {
+    _charity: charid,
+    _campaign: campid,
+    title,
+    pictureUrl,
+    description,
+    channels,
+    mediaType,
+    sourceUrl,
+    dateRangeStart,
+    dateRangeEnd
+  })
+    .then(updatedCampaign => {
+      res.json({
+        success: true,
+        updatedCampaign
+      });
+    })
+    .catch(err => next(err));
+});
+
+// route to delete a material (and its objid references in its parent campaign)
+router.delete("/:charid/campaigns/:campid/materials/:mateid", (req, res, next) => {
+  // campaign ID
+  let campid = req.params.campid;
+  let mateid = req.params.mateid;
+  
+  Material.findById(mateid)
+    .then(removedMaterial => {
+      // find campaign, update by removing the ref to to the soon to be deleted material
+      Campaign.findByIdAndUpdate(campid, {$pull: {"_materials": mongoose.Types.ObjectId(mateid) } })
+      .then (result => {
+        // delete the material
+        Material.deleteOne({_id: mateid}).then(result => {
+          // success
+          res.json(result);
+        })
+      })
     })
     .catch(err => next(err));
 });
