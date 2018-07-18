@@ -12,6 +12,18 @@ const errHandler = err => {
 export default {
   service: service,
 
+  formatQueryString(params) {
+    var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
+    // console.log("querystring in api.js, ", queryString)
+    return queryString
+  },
+  getCampaignsByQuery(params) {
+    let queryString = this.formatQueryString(params)
+    return service
+      .get(`/campaigns/search/?${queryString}`)
+      .then(res => res.data)
+      .catch(errHandler);
+  },
   // addPicture(file) {
   //   const formData = new FormData();
   //   formData.append("pictureUrl", file)
