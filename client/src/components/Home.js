@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Search from './Search';
+import CharityList from './CharityList';
 
 class Home extends Component {
   constructor(props) {
@@ -25,8 +26,7 @@ class Home extends Component {
     return (
       <div className="Home">
         <Search handleResults={this.handleResults.bind(this)}/>
-        <h2>Home</h2>
-        <p>THIS IS THE HOME PAGE: {this.state.data[0].title}</p>
+        <CharityList data={this.state.data}/>
         
       </div>
     );

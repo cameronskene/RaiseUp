@@ -1,4 +1,5 @@
 import React from 'react';
+import FontAwesome from 'react-fontawesome'
 import {
   Collapse,
   Navbar,
@@ -73,7 +74,12 @@ class Search extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">RaiseUp</NavbarBrand>
+          <NavbarBrand className='mr-2' href="/">RaiseUp</NavbarBrand>
+          <FontAwesome
+            className='super-crazy-colors ml-0 mr-2'
+            name='arrow-circle-up '
+            size='2x'
+          />
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav  navbar>

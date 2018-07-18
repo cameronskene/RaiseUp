@@ -27,7 +27,7 @@ router.get("/search", (req, res, next) => {
   // this is the simplified model:
   
   if (keys.includes("sector")) {
-    Charity.find({ sector: req.query.sector }).populate({path: "_campaigns", populate: {path: "_materials"}})
+    Charity.find({ sector: req.query.sector }).populate({path: "_campaigns", populate: [ "_materials", "_charity"]})
       .then(charities => {
         let campaigns = [];
         charities.forEach(charity => {
