@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
+import {ListGroup} from 'reactstrap';
 import CharityCard from './CharityCard';
 
 class CharityList extends Component {
@@ -60,15 +61,18 @@ class CharityList extends Component {
 
     return (
       <div className="Charities">
-        <ul>
+        
+
+        <ListGroup>
         {this.state.data.map(data => { 
-          {/* console.log("charitylist reder map data: ", data) */}
           if (this.state.type === "charity")
             return <CharityCard data={data}/>
           else if (this.state.type === "campaign")
             return  <CharityCard data={data._charity}/>  
-        })}    
-        </ul>
+        })} 
+        </ListGroup>
+    
+        
       </div>
     );
   }

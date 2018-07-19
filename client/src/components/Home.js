@@ -31,10 +31,10 @@ class Home extends Component {
         <Search handleResults={this.handleResults.bind(this)}/>
         <Container>
           <Row>
-            <Col><CharityList data={this.state.data}/></Col> 
-            <Col>.col2</Col>
-            <Col>.col3</Col>
-            <Col>.col4</Col>
+            <Col ><CharityList data={this.state.data}/></Col> 
+            <Col >.col2</Col>
+            <Col >.col3</Col>
+            <Col >.col4</Col>
           </Row>
         </Container>  
         

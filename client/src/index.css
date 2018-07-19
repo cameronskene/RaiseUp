@@ -9,6 +9,44 @@ body {
   height: 15vh;
 }
 
+/* COMPONENT: CHARITYCARD, CAMPAIGNCARD: thin-card */
+.thin-card {
+  display: flex;
+  /* justify-content: space-between; */
+  padding: 10px !important;
+  height: 15vh;
+  align-items: center;
+}
+.no-border {
+  height: 13.5vh !important;
+  border: none !important;
+  width: 50% !important;
+  padding: 2px !important;
+}
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* .thin-card-content {
+  display: inline-block;
+  margin: 0 5px 0 5px
+} */
+.thin-card-img {
+  max-width: 80%;
+  max-height: 13vh;
+  margin: 0 5px 0 5px;
+  align-self: center;
+}
+.thin-card-txt {
+  font-stretch: condensed;
+  margin: 0 5px 0 5px;
+  max-width: 100%;
+  display: inline;
+  margin-right: 10px;
+  /* line-height: 1px  */
+}
+
 /* COMPONENT: CAMPAIGN */
 .Campaign > img {
   height: 15vh;
