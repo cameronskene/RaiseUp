@@ -3,17 +3,27 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+/* COMPONENT: LINK */ 
+ a {
+  text-decoration: none;
+  color: black !important;
+}
 
 /* COMPONENT: CHARITY */
 .Charity > img {
   height: 15vh;
 }
+/* COMPONENT: SEARCH */
+.brand {
+  width: 7vw;
+}
+
 
 /* COMPONENT: CHARITYCARD, CAMPAIGNCARD: thin-card */
 .thin-card {
   display: flex;
   /* justify-content: space-between; */
-  padding: 10px !important;
+  padding: 5px 10px 10px 10px !important;
   height: 15vh;
   align-items: center;
 }
@@ -33,10 +43,16 @@ body {
   margin: 0 5px 0 5px
 } */
 .thin-card-img {
-  max-width: 80%;
+  max-width: 95%;
   max-height: 13vh;
-  margin: 0 5px 0 5px;
   align-self: center;
+}
+.whitespace {
+  background: white;
+  height: 13vh;
+  width: 100%;
+  margin-left: 10px;
+  border-radius: .5rem;
 }
 .thin-card-txt {
   font-stretch: condensed;

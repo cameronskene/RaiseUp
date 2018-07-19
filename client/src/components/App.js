@@ -50,12 +50,11 @@ class App extends Component {
         </header>
         <Switch>
           {/* THIS GOES TO NEW CHILDREN: render={(props) => {return <Home {...props} data={this.state.data} />}} */}
-          <Route path="/" exact component={Home}/>
+          <Route path="/" component={Home}/>
           {/* <Route path="/charities" exact component={Charities} /> */}
           <Route path="/add-charity" component={AddCharity} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          {/* <Route path="/charities/:id" exact component={Charity} /> */}
           <Route path={"/charities/:id/campaigns/add"} component={AddCampaign} />
           <Route path={"/charities/:charid/campaigns/:campid"} exact component={Campaign} />
           <Route path={"/charities/:charid/campaigns/:campid/materials/add"} component={AddMaterial} />

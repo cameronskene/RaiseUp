@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { ListGroupItem, Row, Col } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 
 class CharityCard extends Component {
@@ -9,6 +10,7 @@ class CharityCard extends Component {
       data: this.props.data,
       active: this.props.active
     }
+    this.handleCharityClick = this.handleCharityClick.bind(this)
   }
   
   componentWillReceiveProps(nextProps) {
@@ -18,15 +20,26 @@ class CharityCard extends Component {
     })
   }
 
+  handleCharityClick(e) {
+    // console.log("Charity Click handled")
+    console.log("handlecharityclick tag state.active", this.state.active)
+    this.setState({
+      active: !this.state.active
+    })
+    this.props.handleActive(!this.state.active, this.state.data)
+  }
+
   render() {    
-    // console.log("CC render data: ", this.state.data)
+    // console.log("CC render active: " + this.state.data.name + "  " + this.state.active)
     return (
       <div>
-        <ListGroupItem className="thin-card">
+        <ListGroupItem active={this.state.active} className="thin-card" onClick={this.handleCharityClick}>
+          <Link to={"/charities/" + this.state.data._id}>
           <Row> 
-          <Col className="no-border flex"><img className="thin-card-img" src={this.state.data.pictureUrl} /></Col>
+          <Col className="no-border flex"><div className="whitespace flex"><img className="thin-card-img" src={this.state.data.pictureUrl} /></div></Col>
           <Col className="no-border flex"><div className="thin-card-txt">{this.state.data.name}</div></Col>
           </Row>
+          </Link>
         </ListGroupItem>
       </div>
     );

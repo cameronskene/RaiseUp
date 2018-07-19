@@ -74,12 +74,12 @@ class Search extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand className='mr-2' href="/">RaiseUp</NavbarBrand>
-          <FontAwesome
+          <NavbarBrand className='mr-2' href="/"><img className="brand" src="/raiseup_transparent.png" /></NavbarBrand>
+          {/* <FontAwesome
             className='super-crazy-colors ml-0 mr-2'
             name='arrow-circle-up '
             size='2x'
-          />
+          /> */}
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav  navbar>

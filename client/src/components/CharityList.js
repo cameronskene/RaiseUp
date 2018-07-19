@@ -8,32 +8,42 @@ class CharityList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: [{_charity: null}],
-      type: "loading"
+      data: this.props.data,
+      type: this.props.type,
+      active: this.props.active,
     }
   }
 
-  componentDidMount() {
-    // on first mount get all charities
-    if (this.state.data[0]._charity === null) {
-      api.getCharities()
-      .then(charities => {
-        charities.map(charity => {
-          charity._charity = null
-        })
-        this.setState({
-          data: charities,
-          type: "charity"
-        })
-      })
-      .catch(err => console.log(err))
-    }
-  }
+  // componentDidMount() {
+  //   // on first mount get all charities
+  //   if (this.state.data[0]._charity === null) {
+  //     api.getCharities()
+  //     .then(charities => {
+  //       charities.map(charity => {
+  //         charity._charity = null
+  //       })
+  //       this.setState({
+  //         data: charities,
+  //         type: "charity",
+  //         active: charities[0]
+  //       })
+  //     })
+  //     .catch(err => console.log(err))
+  //   }
+  // }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({
+    if (this.state.active === []) {
+      this.setState({
       data: nextProps.data,
-    })
+      active: nextProps.active,
+      })
+    }
+    else {
+      this.setState({
+        data: nextProps.data,
+        })
+    }
     if(nextProps.data[0] && nextProps.data[0]._charity) {
       // modify above condition if needed
       console.log("CL render data IF condition ")
@@ -49,26 +59,31 @@ class CharityList extends Component {
       })  
     }  
   }
-
+  handleActive(result, data) {
+    // console.log("handleActive Charity List! ", result)
+    this.setState({
+      active: data
+    })
+    console.log("CL this.state.active ", this.state.active.name)
+  }
 
   render() {     
     // console.log("this.state.type in CharityList render ", this.state.type)
-
-    console.log("CL render data: ", this.state.data)
-
-    
-    console.log("CL render data state type: ", this.state.type)
+    // console.log("CL render data: ", this.state.data)
+    // console.log("CL render active: ", this.state.active)
+    // console.log("CL render data state type: ", this.state.type)
 
     return (
       <div className="Charities">
-        
 
         <ListGroup>
-        {this.state.data.map(data => { 
-          if (this.state.type === "charity")
-            return <CharityCard data={data}/>
+         
+        { 
+          this.state.data.map(data => { 
+          if (this.state.active && this.state.type === "charity")
+            return <CharityCard key={data._id} handleActive={this.handleActive.bind(this)} active={this.state.active._id == data._id} data={data}/>
           else if (this.state.type === "campaign")
-            return  <CharityCard data={data._charity}/>  
+            return  <CharityCard key={data._charity._id} active={this.state.active._id == data._id} data={data._charity}/>  
         })} 
         </ListGroup>
     
