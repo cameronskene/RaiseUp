@@ -27,20 +27,29 @@ router.get("/search", (req, res, next) => {
   // this is the simplified model:
   
   if (keys.includes("sector")) {
-    Charity.find({ sector: req.query.sector }).populate({path: "_campaigns", populate: [ "_materials", "_charity"]})
+    Charity.find({ sector: req.query.sector }).populate({
+      path: "_campaigns", 
+      populate: {
+        path: "_materials", 
+        model: "Material"
+      }
+    })
+     
       .then(charities => {
-        let campaigns = [];
-        charities.forEach(charity => {
-          charity._campaigns.forEach(campaign => {
-            campaigns.push(campaign);
-          });
-        });
-        res.json(campaigns);
+        console.log(charities)
+        // let campaigns = [];
+        // charities.forEach(charity => {
+        //   charity._campaigns.forEach(campaign => {
+        //     campaigns.push(campaign);
+        //   });
+        // });
+        res.json(charities);
       })
       .catch(err => next(err));
   }
   else if (keys.includes("fundraisingType")) {
-    Campaign.find({ fundraisingType: req.query.fundraisingType }).populate("_materials")
+    Campaign.find({ fundraisingType: req.query.fundraisingType }).populate({path: "_charity"}).populate("_materials")
+    
     
       .then(campaigns => {
         res.json(campaigns);
@@ -48,7 +57,7 @@ router.get("/search", (req, res, next) => {
       .catch(err => next(err));
   }
   else if (keys.includes("dateRangeStart")) {
-    Campaign.find({ dateRangeStart: req.query.dateRangeStart }).populate("_materials")
+    Campaign.find({ dateRangeStart: req.query.dateRangeStart }).populate({path: "_charity"}).populate("_materials")
       
       .then(campaigns => {
         res.json(campaigns);
@@ -67,15 +76,19 @@ router.get("/search", (req, res, next) => {
       query = "Thank Yous/ Receipts"
     }
     Material.find({ channels: query })
-    .populate({path: "_campaign", populate: {path: "_materials"}})
+    .populate({path: "_campaign", populate: ["_materials", "_charity"]})
       .then(materials => {
         let campaigns = [];
+        let id = ""
         materials.forEach(material => {
-          campaigns.push(material._campaign);
+          if (id !== material._charity._id) {
+            campaigns.push(material._campaign);
+            id = material._charity._id
+          }
         });
         res.json(campaigns);
 
-        res.json(materials);
+        // res.json(materials);
       })
       .catch(err => next(err));
   }

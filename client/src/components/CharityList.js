@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
+import CharityCard from './CharityCard';
 
-class Charities extends Component {
+class CharityList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: [{_charity: null}]
+      data: [{_charity: null}],
+      type: "loading"
     }
   }
 
   componentDidMount() {
+    // on first mount get all charities
     if (this.state.data[0]._charity === null) {
       api.getCharities()
       .then(charities => {
         charities.map(charity => {
           charity._charity = null
         })
-
         this.setState({
-          data: charities
+          data: charities,
+          type: "charity"
         })
       })
       .catch(err => console.log(err))
@@ -28,27 +31,50 @@ class Charities extends Component {
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      data: nextProps.data
+      data: nextProps.data,
     })
+    if(nextProps.data[0] && nextProps.data[0]._charity) {
+      // modify above condition if needed
+      console.log("CL render data IF condition ")
+      this.setState({
+        type: "campaign"
+      })
+    }
+    else if(nextProps.data[0] && !nextProps.data[0]._charity) {
+      // modify above condition if needed
+      console.log("CL render data ELSE IF condition ")
+      this.setState({
+        type: "charity"
+      })  
+    }  
   }
 
 
   render() {     
-       
+    // console.log("this.state.type in CharityList render ", this.state.type)
+
+    console.log("CL render data: ", this.state.data)
+
+    
+    console.log("CL render data state type: ", this.state.type)
+
     return (
       <div className="Charities">
         <ul>
-          {/* <Charity /> */}
-          {this.state.data[0]._charity === null  &&this.state.data.map((c, i) => <li key={i}><Link to={"charities/" + c._id}>{c.name}</Link></li>)}
-          {this.state.data[0]._charity !== null  && this.state.data.map(campaign => {
-            return <li key={campaign._charity._id}><Link to={"charities/" + campaign._charity._id}>{campaign._charity.name}</Link></li>
-            }
-          )}
+        {this.state.data.map(data => { 
+          {/* console.log("charitylist reder map data: ", data) */}
+          if (this.state.type === "charity")
+            return <CharityCard data={data}/>
+          else if (this.state.type === "campaign")
+            return  <CharityCard data={data._charity}/>  
+        })}    
         </ul>
       </div>
     );
   }
 }
 
-export default Charities;
+
+
+export default CharityList;
 

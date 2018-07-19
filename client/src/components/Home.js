@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col, Container } from 'reactstrap';
 import Search from './Search';
 import CharityList from './CharityList';
 
@@ -21,12 +22,21 @@ class Home extends Component {
   //     data: nextProps.data
   //   })
   // }
-  render() {   
-    // console.log(" this.state.data in HOME", this.state.data)             
+
+
+  render() {               
     return (
       <div className="Home">
+      
         <Search handleResults={this.handleResults.bind(this)}/>
-        <CharityList data={this.state.data}/>
+        <Container>
+          <Row>
+            <Col><CharityList data={this.state.data}/></Col> 
+            <Col>.col2</Col>
+            <Col>.col3</Col>
+            <Col>.col4</Col>
+          </Row>
+        </Container>  
         
       </div>
     );

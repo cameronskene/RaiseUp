@@ -8,7 +8,7 @@ import AddCampaign from './AddCampaign';
 import AddMaterial from './AddMaterial';
 import Login from './Login';
 import Signup from './Signup';
-import Charity from './Charity';
+import CharityDetail from './CharityDetail';
 import Campaign from './Campaign';
 import Material from './Material';
 import api from '../api';
@@ -55,7 +55,7 @@ class App extends Component {
           <Route path="/add-charity" component={AddCharity} />
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
-          <Route path="/charities/:id" exact component={Charity} />
+          {/* <Route path="/charities/:id" exact component={Charity} /> */}
           <Route path={"/charities/:id/campaigns/add"} component={AddCampaign} />
           <Route path={"/charities/:charid/campaigns/:campid"} exact component={Campaign} />
           <Route path={"/charities/:charid/campaigns/:campid/materials/add"} component={AddMaterial} />

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api';
 
-class Charity extends Component {
+class CharityDetail extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -41,4 +41,4 @@ class Charity extends Component {
   }
 }          
 
-export default Charity;
+export default CharityDetail;
