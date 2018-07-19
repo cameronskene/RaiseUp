@@ -24,29 +24,15 @@ export default {
       .then(res => res.data)
       .catch(errHandler);
   },
-  // addPicture(file) {
-  //   const formData = new FormData();
-  //   formData.append("pictureUrl", file)
-  //   console.log('DEBUG formData', formData.get("pictureUrl"));
-  //   return service
-  //     .post("charities/picture", formData, {
-  //       headers: {
-  //         'Content-Type': 'multipart/form-data',
-  //       },
-  //     })
-  //     .then(res => res.data)
-  //     .catch(errHandler);
-  // },
-  
   getCharities() {
     return service
       .get('/charities')
       .then(res => res.data)
       .catch(errHandler);
   },
-  getCharity(id) {
+  getCharity(charid) {
     return service
-      .get(`/charities/${id}`)
+      .get(`/charities/${charid}`)
       .then(res => res.data)
       .catch(errHandler);
   },

@@ -34,7 +34,7 @@ router.get("/", (req, res, next) => {
 router.get("/:id", (req, res, next) => {
   let id = req.params.id;
   Charity.findById(id)
-    .populate("_campaigns")
+    .populate({path: "_campaigns", populate:{path: "_materials", model: "Material"}})
     .then(charity => {
       res.json(charity);
     })

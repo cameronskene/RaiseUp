@@ -61,11 +61,11 @@ class CharityList extends Component {
     }  
   }
   handleActive(result, data) {
-    console.log("handleActive Charity List! " + result + "   " + data.name)
+    // console.log("handleActive Charity List! " + result + "   " + data.name)
     this.setState({
       active: data
     })
-    console.log("CL this.state.active ", this.state.active)
+    // console.log("CL this.state.active ", this.state.active)
   }
 
   render() {     

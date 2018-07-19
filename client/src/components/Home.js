@@ -39,7 +39,7 @@ class Home extends Component {
       data: results,
       active: results[0]
     })
-    // console.log("home handleres active: ", this.state.active)
+    console.log("home handleres active: ", this.state.active)
   }
   // this goes to the new children components
   // componentWillReceiveProps(nextProps) {
@@ -56,7 +56,7 @@ class Home extends Component {
         <Search handleResults={this.handleResults.bind(this)}/>
         <Container>
           <Row>
-            <Col ><CharityList active={this.state.active} type={this.state.type} data={this.state.data}/></Col> 
+            <Col ><CharityList  active={this.state.active} type={this.state.type} data={this.state.data}/></Col> 
             <Col ><Route path="/charities/:id" exact component={CampaignList}/></Col>
             <Col >.col3</Col>
             <Col >.col4</Col>
