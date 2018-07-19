@@ -42,29 +42,30 @@ class CharityList extends Component {
     else {
       this.setState({
         data: nextProps.data,
+        // active: nextProps.active
         })
     }
     if(nextProps.data[0] && nextProps.data[0]._charity) {
       // modify above condition if needed
-      console.log("CL render data IF condition ")
+      // console.log("CL render data IF condition ")
       this.setState({
         type: "campaign"
       })
     }
     else if(nextProps.data[0] && !nextProps.data[0]._charity) {
       // modify above condition if needed
-      console.log("CL render data ELSE IF condition ")
+      // console.log("CL render data ELSE IF condition ")
       this.setState({
         type: "charity"
       })  
     }  
   }
   handleActive(result, data) {
-    // console.log("handleActive Charity List! ", result)
+    console.log("handleActive Charity List! " + result + "   " + data.name)
     this.setState({
       active: data
     })
-    console.log("CL this.state.active ", this.state.active.name)
+    console.log("CL this.state.active ", this.state.active)
   }
 
   render() {     
@@ -78,12 +79,17 @@ class CharityList extends Component {
 
         <ListGroup>
          
-        { 
-          this.state.data.map(data => { 
-          if (this.state.active && this.state.type === "charity")
-            return <CharityCard key={data._id} handleActive={this.handleActive.bind(this)} active={this.state.active._id == data._id} data={data}/>
-          else if (this.state.type === "campaign")
-            return  <CharityCard key={data._charity._id} active={this.state.active._id == data._id} data={data._charity}/>  
+        { this.state.data.map(data => { 
+          if (this.state.active && this.state.type === "charity") {
+            {/* console.log("CL map render type === charity") */}
+            return <CharityCard key={data._id}  handleActive={this.handleActive.bind(this)} active={this.state.active._id == data._id} data={data}/>
+          } 
+            
+          else if (this.state.type === "campaign") {
+            {/* console.log("CL map render type === campaign, ", this.state.active._charity) */}
+            return  <CharityCard key={data._charity._id}  handleActive={this.handleActive.bind(this)} active={this.state.active._id == data._charity._id} data={data._charity}/>  
+          }
+            
         })} 
         </ListGroup>
     

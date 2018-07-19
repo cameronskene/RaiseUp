@@ -18,14 +18,16 @@ class CharityCard extends Component {
       data: nextProps.data,
       active: nextProps.active
     })
+    // console.log("CC cWRP: ", nextProps.active)
   }
 
   handleCharityClick(e) {
     // console.log("Charity Click handled")
-    console.log("handlecharityclick tag state.active", this.state.active)
-    this.setState({
+    // console.log("handlecharityclick tag state.active", this.state.active)
+    let newState = {
       active: !this.state.active
-    })
+    }
+    this.setState(newState)
     this.props.handleActive(!this.state.active, this.state.data)
   }
 
