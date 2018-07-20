@@ -47,6 +47,10 @@ body {
   max-height: 13vh;
   align-self: center;
 }
+.campaign-img {
+  border-radius: .5rem;
+  /* width: 95% */
+}
 .whitespace {
   background: white;
   height: 13vh;

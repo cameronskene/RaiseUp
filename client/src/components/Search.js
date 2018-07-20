@@ -59,6 +59,7 @@ class Search extends React.Component {
         query: "",
         dropdownTag: "Search by"
       })
+      
     })
   }
   handleDropdownClick(e) {

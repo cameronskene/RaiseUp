@@ -9,8 +9,10 @@ class CampaignList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: ""
+      data: "",
+      active: {_id: null},
     }
+    // this.handleCampaignActive = this.handleCampaignActive.bind(this)
   }
   componentWillReceiveProps(nextProps) {
     // console.log("CampL cWRP nextProps: ", nextProps)
@@ -33,10 +35,18 @@ class CampaignList extends Component {
       }) 
     }
   }
-  
+  handleActive(result, data) {
+    // console.log("handleActive Charity List! " + result + "   " + data.name)
+    this.setState({
+      active: data
+    })
+    // console.log("CampL this.state.active ", this.state.active)
+    this.props.handleCampaignActive(this.state.active)
+
+  }
 
   render() {   
-    console.log("CampL render campaigns: ", this.state.data.name)
+    // console.log("CampL render campaigns: ", this.state.data.name)
     if  (this.state.data._campaigns) {
       return (
       <div className="CampaignList">
@@ -44,7 +54,7 @@ class CampaignList extends Component {
         
         {/* <span> {this.state.data.name} </span> */}
         {this.state.data._campaigns.map(campaign => {
-          return <CampaignCard data={this.state.data} />
+          return <CampaignCard handleActive={this.handleActive.bind(this)} data={campaign} active={this.state.active._id == campaign._id}/>
         })}
         
         </ListGroup>
