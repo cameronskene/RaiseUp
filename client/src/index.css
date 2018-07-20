@@ -33,7 +33,19 @@ body {
 .MaterialCard {
   margin-top: 5px;
 }
-
+.card-footer {
+  height:7vh
+}
+/* COMPONENT: MATERIALMODAL */
+.modal-image {
+  width: 100%
+}
+.MaterialModal {
+  
+} */
+/* .modal-content {
+  width: 80vw !important;
+} */
 /* COMPONENT: CHARITYCARD, CAMPAIGNCARD: thin-card */
 .CharityCard, .CampaignCard {
   margin-top: 12px;
