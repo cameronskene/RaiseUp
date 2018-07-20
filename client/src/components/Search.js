@@ -87,6 +87,7 @@ class Search extends React.Component {
                 <DropdownToggle nav caret={this.state.dropdownTag === "Search by"} className="mb-2 mr-sm-2 mb-sm-0 mt-0.5">
                   {this.state.dropdownTag}
                 </DropdownToggle>
+                <div className="selector">
                 <DropdownMenu left> {/* this causes an error*/}
                   <DropdownItem data-action="name" onClick={this.handleDropdownClick}>
                     Charity Name
@@ -106,14 +107,16 @@ class Search extends React.Component {
                     Material Channel
                   </DropdownItem>
                 </DropdownMenu>
+                </div>
               </UncontrolledDropdown>
-              
+              <div>
               <Form inline >
                 <FormGroup row>
                     <Input className="mb-2 mr-sm-2 mb-sm-0" type="text" name="query" onChange={this.handleInputChange} id="search" value={this.state.query} placeholder="What are you looking for?" />
                     <Button className="mb-2 mr-sm-2 mb-sm-0" onClick={this.handleSearch}>Search</Button>
                 </FormGroup>
-              </Form>  
+              </Form>
+              </div>  
             </Nav>
           </Collapse>
         </Col>  

@@ -9,7 +9,9 @@
 	display: flex !important;
 }
 
-
+.selector {
+  width: 250px
+}
 
 .btn-secondary {
 	background-color: rgba(167, 190, 211, 1) !important;
