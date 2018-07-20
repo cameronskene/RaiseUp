@@ -40,7 +40,7 @@ class CampaignCard extends Component {
     let inactiveLink = ("/charities/" + this.state.data._charity + "/campaigns/" + this.state.data._id + "/materials")
     let activeLink = ("/charities/" + this.state.data._charity)  
     return (
-      <div>
+      <div className="CampaignCard">
         <ListGroupItem  active={this.state.active} className="thin-card" onClick={this.handleCampaignClick}>
           <Link to={this.state.active ? activeLink : inactiveLink}> 
           <Row> 
@@ -54,13 +54,6 @@ class CampaignCard extends Component {
   }
 }  
 
-        {/* <ListGroupItem active={this.state.active} className="thin-card" onClick={this.handleCharityClick}>
-          <Link to={"/charities/" + this.state.data._id}>
-          <Row> 
-          <Col className="no-border flex"><div className="whitespace flex"><img className="thin-card-img" src={this.state.data.pictureUrl} /></div></Col>
-          <Col className="no-border flex"><div className="thin-card-txt">{this.state.data.name}</div></Col>
-          </Row>
-          </Link>
-        </ListGroupItem> */}
+
 
 export default CampaignCard;

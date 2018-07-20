@@ -34,7 +34,7 @@ class CharityCard extends Component {
   render() {    
     // console.log("CC render active: " + this.state.data.name + "  " + this.state.active)
     return (
-      <div>
+      <div className="CharityCard">
         <ListGroupItem active={this.state.active} className="thin-card" onClick={this.handleCharityClick}>
           <Link to={"/charities/" + this.state.data._id}>
           <Row> 

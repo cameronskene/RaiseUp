@@ -17,9 +17,28 @@ body {
 .brand {
   width: 7vw;
 }
+/* COMPONENT: MATERIALLIST: */
+.MaterialList {
+  display:flex;
+}
+.material-right, .material-left {
+  display: inline-block;
+  padding: 5px !important;
+}
 
+/* COMPONENT: MATERIALCARD: full-card */
+.full-card-img {
+  height:25vh
+}
+.MaterialCard {
+  margin-top: 5px;
+}
 
 /* COMPONENT: CHARITYCARD, CAMPAIGNCARD: thin-card */
+.CharityCard, .CampaignCard {
+  margin-top: 12px;
+}
+
 .thin-card {
   display: flex;
   /* justify-content: space-between; */
@@ -79,8 +98,8 @@ body {
 
 /* COMPONENT: CONTAINER */
 .container {
-  margin-left: 1px !important;
-  margin-right: 1px !important;
+  /* margin-left: 1px !important; */
+  /* margin-right: 1px !important; */
   max-width: 99.8vw !important;
 }
 /* COMPONENT: ROW */
@@ -89,7 +108,14 @@ body {
 } */
 /* COMPONENT: COL */
 .col {
-  border-left: 0.5px solid darkgray;
-  border-right: 0.5px solid darkgray;
+  /* border-left: 0.5px solid darkgray; */
+  /* border-right: 0.5px solid darkgray; */
   height:92vh;
 }
+
+.home-col {
+  margin-top:5px;
+  border-left: 0.1vw lightgrey dotted;
+  max-height: 88vh;
+  overflow-y: auto;
+} 

@@ -83,16 +83,16 @@ class Home extends Component {
         <Search handleResults={this.handleResults.bind(this)}/>
         <Container>
           <Row>
-            <Col > <h4>Charities</h4><CharityList  active={this.state.active} type={this.state.type} data={this.state.data}/></Col> 
-            <Col > <h4>Campaigns</h4>{this.state.campaignList && <Route path="/charities/:id" render={(props) => {return <CampaignList {...props} handleCampaignActive={this.handleCampaignActive.bind(this)} />}}/>}</Col>
-            <Col xs="6"> <h4>Materials</h4>
+            <Col className="home-col"> <h4>Charities</h4><CharityList  active={this.state.active} type={this.state.type} data={this.state.data}/></Col> 
+            <Col className="home-col"> <h4>Campaigns</h4>{this.state.campaignList && <Route path="/charities/:id" render={(props) => {return <CampaignList {...props} handleCampaignActive={this.handleCampaignActive.bind(this)} />}}/>}</Col>
+            <Col  className="home-col" xs="6"> <h4>Materials</h4>
               {this.state.materialList && this.state.activeCampaign && <MaterialsRoute data={this.state.activeCampaign}/>}
               {this.state.materialList && !this.state.activeCampaign && <MaterialsRoute />}
             </Col>
             
           </Row>
         </Container>  
-        {/* <Route path="/charities/:id" exact component={CampaignList}/> */}
+        
       </div>
     );
   }
