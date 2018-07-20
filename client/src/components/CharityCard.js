@@ -38,8 +38,8 @@ class CharityCard extends Component {
         <ListGroupItem active={this.state.active} className="thin-card" onClick={this.handleCharityClick}>
           <Link to={"/charities/" + this.state.data._id}>
           <Row> 
-          <Col className="no-border flex"><div className="whitespace flex"><img className="thin-card-img" src={this.state.data.pictureUrl} /></div></Col>
-          <Col className="no-border flex"><div className="thin-card-txt">{this.state.data.name}</div></Col>
+          <Col md="6" className="no-border flex"><div className="whitespace flex"><img className="thin-card-img" src={this.state.data.pictureUrl} /></div></Col>
+          <Col md="6" className="no-border flex"><div className="thin-card-txt">{this.state.data.name}</div></Col>
           </Row>
           </Link>
         </ListGroupItem>

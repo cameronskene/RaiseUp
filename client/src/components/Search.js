@@ -1,5 +1,6 @@
 import React from 'react';
 import FontAwesome from 'react-fontawesome'
+import { Col } from 'reactstrap';
 import {
   Collapse,
   Navbar,
@@ -75,12 +76,10 @@ class Search extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
+      <Col md="3">
           <NavbarBrand className='mr-2' href="/"><img className="brand" src="/raiseup_transparent.png" /></NavbarBrand>
-          {/* <FontAwesome
-            className='super-crazy-colors ml-0 mr-2'
-            name='arrow-circle-up '
-            size='2x'
-          /> */}
+      </Col>    
+      <Col md="9" className="mx-auto">    
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav  navbar>
@@ -117,6 +116,7 @@ class Search extends React.Component {
               </Form>  
             </Nav>
           </Collapse>
+        </Col>  
         </Navbar>
       </div>
     );

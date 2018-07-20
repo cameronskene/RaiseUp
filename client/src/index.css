@@ -1,3 +1,67 @@
+
+@import url("https://fonts.googleapis.com/css?family=Lato|Montserrat");
+
+.container {
+	background-color: #fefefe;
+}
+
+.navbar {
+	display: flex !important;
+}
+
+
+
+.btn-secondary {
+	background-color: rgba(167, 190, 211, 1) !important;
+	border: 1px solid rgba(167, 190, 211, 0.5) !important;
+	font-weight: 800 !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: "Montserrat" !important;
+	color: #222222 !important;
+}
+
+h4 {
+	font-weight: 800 !important;
+}
+
+p,
+a,
+input,
+button {
+	font-family: "Lato";
+}
+
+a:hover {
+	text-decoration: none !important;
+}
+
+.list-group-item.active {
+	background-color: rgba(167, 190, 211, 1) !important;
+	border: 1px solid rgba(167, 190, 211, 1) !important;
+}
+
+.CharityCard {
+	margin-bottom: 1rem;
+  text-shadow: 1px 1px 4px rgba(150, 150, 150, 1);
+  box-shadow: 1px 1px 3px rgba(150, 150, 150, 1);
+  
+}
+
+.list-group {
+	margin-top: 2rem !important;
+}
+
+.home-col {
+	margin-top: 2rem !important;
+	margin-bottom: 2rem !important;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -28,11 +92,15 @@ body {
 
 /* COMPONENT: MATERIALCARD: full-card */
 .full-card-img {
-  height:25vh
+  height: auto;
+  width: 100%
 }
 .MaterialCard {
-  /* margin-top: 5px; */
+  margin-top: 1.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
   padding-bottom: 10px;
+  box-shadow: 1px 1px 3px rgba(150, 150, 150, 1);
 }
 .card-footer {
   height:7vh
@@ -41,15 +109,16 @@ body {
 .modal-image {
   width: 100%
 }
-.MaterialModal {
-  
+.CampaignList {
+  box-shadow: 1px 1px 3px rgba(150, 150, 150, 1);
+  text-shadow: 1px 1px 4px rgba(150, 150, 150, 1);
 } */
-/* .modal-content {
-  width: 80vw !important;
-} */
+
 /* COMPONENT: CHARITYCARD, CAMPAIGNCARD: thin-card */
 .CharityCard, .CampaignCard {
   margin-top: 12px;
+  
+  box-shadow: 1px 1px 3px rgba(150, 150, 150, 1);
 }
 
 .thin-card {
