@@ -49,7 +49,7 @@ class Search extends React.Component {
     e.preventDefault()
     // console.log("search submitted")
     let searchQuery = {[this.state.searchBy]: this.state.query}
-    // console.log(searchQuery)
+    console.log(searchQuery)
     api.getCampaignsByQuery(searchQuery)
     .then(result => {
       // console.log("result in Search: ", result)

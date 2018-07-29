@@ -34,15 +34,20 @@ router.get("/search", (req, res, next) => {
         model: "Material"
       }
     })
-     
       .then(charities => {
-        console.log(charities)
-        // let campaigns = [];
-        // charities.forEach(charity => {
-        //   charity._campaigns.forEach(campaign => {
-        //     campaigns.push(campaign);
-        //   });
-        // });
+        res.json(charities);
+      })
+      .catch(err => next(err));
+  }
+  else if (keys.includes("name")) {
+    Charity.find({ name: req.query.name }).populate({
+      path: "_campaigns", 
+      populate: {
+        path: "_materials", 
+        model: "Material"
+      }
+    })
+      .then(charities => {
         res.json(charities);
       })
       .catch(err => next(err));
@@ -58,6 +63,14 @@ router.get("/search", (req, res, next) => {
   }
   else if (keys.includes("dateRangeStart")) {
     Campaign.find({ dateRangeStart: req.query.dateRangeStart }).populate({path: "_charity"}).populate("_materials")
+      
+      .then(campaigns => {
+        res.json(campaigns);
+      })
+      .catch(err => next(err));
+  }
+  else if (keys.includes("title")) {
+    Campaign.find({ title: req.query.title }).populate({path: "_charity"}).populate("_materials")
       
       .then(campaigns => {
         res.json(campaigns);
