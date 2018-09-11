@@ -70,10 +70,10 @@ class AddCharity extends Component {
   render() {
     return (
       <div className="AddCharity">
-        <h2>Add Charity</h2>
         <Container>
           <Row>
             <Col lg="4">
+              <h2>Add Charity</h2>
               <form encType="multipart/form-data">
                 Charity Name: <input type="text" value={this.state.name} onChange={(e) => { this.handleInputChange("name", e) }} /> <br />
                 Sector
