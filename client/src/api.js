@@ -27,7 +27,9 @@ export default {
   getCharities() {
     return service
       .get('/charities')
-      .then(res => res.data)
+      .then(res => {
+        return res.data
+      })
       .catch(errHandler);
   },
   getCharity(charid) {
