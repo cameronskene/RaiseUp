@@ -49,7 +49,7 @@ class CharityList extends Component {
 
         <ListGroup>
          
-        { this.state.data.forEach(data => { 
+        { this.state.data.map(data => { 
           if (this.state.active && this.state.type === "charity") {
             return <CharityCard key={data._id}  handleActive={this.handleActive.bind(this)} active={this.state.active._id === data._id} data={data}/>
           } 
