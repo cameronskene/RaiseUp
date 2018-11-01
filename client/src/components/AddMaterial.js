@@ -1,18 +1,13 @@
 //// ADD MATERIAL COMPONENT 
 
 import React, { Component } from 'react';
-import { Container, Row, Col } from 'reactstrap';
-import axios from 'axios';
-// import { Route, Switch, NavLink, Link } from 'react-router-dom';
 import api from '../api';
-// import './AddCountry.css';
 
 
 class AddMaterial extends Component {
   constructor(props) {
     super(props)
 
-    // fundraisingType
     this.state = {
       _charity: this.props.match.params.charid,
       _campaign: this.props.match.params.campid,
@@ -37,7 +32,7 @@ class AddMaterial extends Component {
     else {
       newState[stateFieldName] = event.target.value
     }
-    // newState[stateFieldName] = event.target.value
+
     this.setState(newState)
   }
 

@@ -22,13 +22,13 @@ class MaterialModal extends React.Component {
   }
 
   render() {
-    console.log("I'm a modal! ", this.state.modal)
+    const data = this.state.data;
     return (
       <div className="MaterialModal">
         <Modal size="lg" isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>{this.state.data.title}</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{data.title}</ModalHeader>
           <ModalBody>
-            <img src={this.state.data.pictureUrl} className="modal-image" />
+            <img src={data.pictureUrl} className="modal-image" alt={"Image of " + data.title + " from " + data._charity}/>
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={this.toggle}>Back</Button>

@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import axios from 'axios';
-// import { Route, Switch, NavLink, Link } from 'react-router-dom';
 import api from '../api';
-import { Container, Row, Col } from 'reactstrap';
-// import './AddCountry.css';
 
 
 class AddCharity extends Component {

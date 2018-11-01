@@ -1,5 +1,4 @@
 import React from 'react';
-import FontAwesome from 'react-fontawesome'
 import { Col } from 'reactstrap';
 import {
   Collapse,
@@ -7,8 +6,6 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
   UncontrolledDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -47,12 +44,9 @@ class Search extends React.Component {
 
   handleSearch(e) {
     e.preventDefault()
-    // console.log("search submitted")
     let searchQuery = {[this.state.searchBy]: this.state.query}
-    console.log(searchQuery)
     api.getCampaignsByQuery(searchQuery)
     .then(result => {
-      // console.log("result in Search: ", result)
       this.props.handleResults(result)
       this.setState({
         isOpen: false,
@@ -64,20 +58,17 @@ class Search extends React.Component {
     })
   }
   handleDropdownClick(e) {
-    // console.log("dropdown click handled")
-    // console.log("handledrop tag e.target: ", e.target.firstChild.data)
     this.setState({
       searchBy: e.target.getAttribute("data-action"),
       dropdownTag: e.target.firstChild.data 
     })
   }
   render() {
-    // console.log(this.state.dropdownTag)
     return (
       <div>
         <Navbar color="light" light expand="md">
       <Col md="3">
-          <NavbarBrand className='mr-2' href="/"><img className="brand" src="/raiseup_transparent.png" /></NavbarBrand>
+          <NavbarBrand className='mr-2' href="/"><img className="brand" src="/raiseup_transparent.png" alt="Logo of RaiseUp"/></NavbarBrand>
       </Col>    
       <Col md="9" className="mx-auto">    
           <NavbarToggler onClick={this.toggle} />
@@ -88,7 +79,7 @@ class Search extends React.Component {
                   {this.state.dropdownTag}
                 </DropdownToggle>
                 <div className="selector">
-                <DropdownMenu left> {/* this causes an error*/}
+                <DropdownMenu left> 
                   <DropdownItem data-action="name" onClick={this.handleDropdownClick}>
                     Charity Name
                   </DropdownItem>

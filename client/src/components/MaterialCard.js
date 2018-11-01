@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { ListGroupItem, Row, Col, Card, CardHeader, CardBody, CardTitle, CardText, CardFooter } from 'reactstrap';
-import { Link } from 'react-router-dom';
+import { Card,CardBody, CardTitle, CardText, CardFooter } from 'reactstrap';
 import  MaterialModal  from './MaterialModal';
 
 
@@ -16,36 +15,27 @@ class MaterialCard extends Component {
   
   
   handleMaterialClick(e) {
-    // console.log("Material Click handled")
-    console.log("handlematerialclick modal: ", this.state.modal)
     let newState = {modal : !this.state.modal}
     this.setState(newState)
   }
 
   render() {
-    // console.log("MatC Data: ", this.state.data)  
-    // console.log("MatC render match", this.props.data)
-    
+    const data = this.state.data;
     return (
       <div className="MaterialCard" onClick={this.handleMaterialClick}>
             <Card>
-              <img className="full-card-img" src={this.state.data.pictureUrl}/>
+              <img className="full-card-img" src={data.pictureUrl} alt={"Image of " + data.title + " from " + data._charity + "."}/>
               <CardBody>
-                <CardTitle>{this.state.data.title}</CardTitle>
-                <CardText>From {this.state.data.dateRangeStart} to {this.state.data.dateRangeEnd}</CardText>
+                <CardTitle>{data.title}</CardTitle>
+                <CardText>From {data.dateRangeStart} to {data.dateRangeEnd}</CardText>
               </CardBody>
-              <CardFooter className="card-footer">{this.state.data.description}</CardFooter>
+              <CardFooter className="card-footer">{data.description}</CardFooter>
             </Card>
-            {this.state.modal && <MaterialModal data={this.state.data} modal={this.state.modal}/>}
+            {this.state.modal && <MaterialModal data={data} modal={this.state.modal}/>}
       </div>
     );
   }
 }  
        
-
-
-// my old:
-// <Col className="no-border flex"><div className="whitespace flex"><img className="thin-card-img campaign-img" src={this.state.data.pictureUrl} /></div></Col>
-// <Col className="no-border flex"><div className="thin-card-txt">{this.state.data.title}</div></Col>
 
 export default MaterialCard;

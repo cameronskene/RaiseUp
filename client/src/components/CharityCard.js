@@ -13,17 +13,15 @@ class CharityCard extends Component {
     this.handleCharityClick = this.handleCharityClick.bind(this)
   }
   
+  // please remove
   componentWillReceiveProps(nextProps) {
     this.setState({
       data: nextProps.data,
       active: nextProps.active
     })
-    // console.log("CC cWRP: ", nextProps.active)
   }
 
   handleCharityClick(e) {
-    // console.log("Charity Click handled")
-    // console.log("handlecharityclick tag state.active", this.state.active)
     let newState = {
       active: !this.state.active
     }
@@ -31,15 +29,15 @@ class CharityCard extends Component {
     this.props.handleActive(!this.state.active, this.state.data)
   }
 
-  render() {    
-    // console.log("CC render active: " + this.state.data.name + "  " + this.state.active)
+  render() {
+    const data =this.state.data;    
     return (
       <div className="CharityCard">
         <ListGroupItem active={this.state.active} className="thin-card" onClick={this.handleCharityClick}>
-          <Link to={"/charities/" + this.state.data._id}>
+          <Link to={"/charities/" + data._id}>
           <Row> 
-          <Col md="6" className="no-border flex"><div className="whitespace flex"><img className="thin-card-img" src={this.state.data.pictureUrl} /></div></Col>
-          <Col md="6" className="no-border flex"><div className="thin-card-txt">{this.state.data.name}</div></Col>
+          <Col md="6" className="no-border flex"><div className="whitespace flex"><img className="thin-card-img" src={data.pictureUrl} alt={"Image of " + data.name} /></div></Col>
+          <Col md="6" className="no-border flex"><div className="thin-card-txt">{data.name}</div></Col>
           </Row>
           </Link>
         </ListGroupItem>
@@ -47,11 +45,5 @@ class CharityCard extends Component {
     );
   }
 }          
-
-          {/* <ListGroupItem active tag="a" href="#" action>Cras justo odio
-          <ListGroupItem tag="a" href="#" action>Dapibus ac facilisis in</ListGroupItem>
-          <ListGroupItem tag="a" href="#" action>Morbi leo risus</ListGroupItem>
-          <ListGroupItem tag="a" href="#" action>Porta ac consectetur ac</ListGroupItem>
-          <ListGroupItem disabled tag="a" href="#" action>Vestibulum at eros</ListGroupItem> */}
 
 export default CharityCard;

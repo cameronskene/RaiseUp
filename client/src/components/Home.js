@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Row, Col, Container } from 'reactstrap';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Search from './Search';
 import CharityList from './CharityList';
 import CampaignList from './CampaignList';
@@ -20,23 +20,22 @@ class Home extends Component {
     }
   }
   componentDidMount() {
-    // on first mount get all charities
     if (this.state.data[0].name === "") {
-
       api.getCharities()
-        .then(charities => {
-          console.log("raiseup java backend. get all charities: ", charities)
-          charities.map(charity => {
-            charity._charity = null
-          })
-          this.setState({
-            data: charities,
-            active: charities[0]
-          })
+      .then(charities => {
+        charities.forEach(charity => {
+          // what the fuck is this?
+          charity._charity = null
+        })
+        this.setState({
+          data: charities,
+          active: charities[0]
         })
         .catch(err => console.log("home js api getCharities error: ", err))
     }
   }
+
+  // please remove
   componentWillReceiveProps(nextProps) {
     if (nextProps.location.pathname !== "/") {
       this.setState({
@@ -47,7 +46,6 @@ class Home extends Component {
   }
 
   handleResults(results) {
-
     this.setState({
       data: results,
       active: results[0],
@@ -61,8 +59,9 @@ class Home extends Component {
       activeCampaign: campaign
     })
   }
-
+  
   render() {
+    // what the fuck is this?
     const MaterialsRoute = ({ data }) => (
       <Route path="/charities/:charid/campaigns/:campid/materials"
         render={(props) => { return <MaterialList {...props} data={data} /> }}
