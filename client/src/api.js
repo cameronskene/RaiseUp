@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3030/api',
+  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:8080/',
 });
 
 const errHandler = err => {
@@ -27,7 +27,9 @@ export default {
   getCharities() {
     return service
       .get('/charities')
-      .then(res => res.data)
+      .then(res => {
+        return res.data
+      })
       .catch(errHandler);
   },
   getCharity(charid) {
@@ -38,7 +40,7 @@ export default {
   },
   postCharities(data) {
     const formData = new FormData();
-    
+
     Object.keys(data).forEach(key => {
       formData.append(key, data[key])
     });
@@ -58,7 +60,7 @@ export default {
       .then(res => res.data)
       .catch(errHandler);
   },
-  
+
   postCampaigns(data) {
     const formData = new FormData();
     Object.keys(data).forEach(key => {
@@ -94,7 +96,7 @@ export default {
     Object.keys(data).forEach(key => {
       formData.append(key, data[key])
     });
-    
+
     return service
       .post(`/charities/${data._charity}/campaigns/${data._campaign}/materials/add`, formData, {
         headers: {
@@ -109,14 +111,14 @@ export default {
     //   .then(res => { res.data })
     //   .catch(errHandler);
   },
-  
+
   getSecret() {
     return service
       .get('/secret')
       .then(res => res.data)
       .catch(errHandler);
   },
-  
+
   signup(userInfo) {
     return service
       .post('/signup', userInfo)

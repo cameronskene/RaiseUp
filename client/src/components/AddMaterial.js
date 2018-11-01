@@ -1,6 +1,7 @@
 //// ADD MATERIAL COMPONENT 
 
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import axios from 'axios';
 // import { Route, Switch, NavLink, Link } from 'react-router-dom';
 import api from '../api';
@@ -84,7 +85,10 @@ class AddMaterial extends Component {
   render() {        
     return (
       <div className="AddMaterial">
-        <h2>Add Material </h2>
+        <Container>
+          <Row>
+            <Col lg="4">
+              <h2>Add Material </h2>
         <form>
           Material Name/ Title: <input type="text" value={this.state.title} onChange={(e) => {this.handleInputChange("title", e)}} /> <br/>
           {
@@ -146,6 +150,9 @@ class AddMaterial extends Component {
         }}>
           {this.state.message}
         </div>
+        </Col>
+        </Row>
+        </Container>
       </div>
     );
   }

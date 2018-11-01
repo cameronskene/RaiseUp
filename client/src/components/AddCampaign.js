@@ -1,6 +1,7 @@
 //ADD CAMPAIGN COMPONENT
 
 import React, { Component } from 'react';
+import { Container, Row, Col } from 'reactstrap';
 import axios from 'axios';
 // import { Route, Switch, NavLink, Link } from 'react-router-dom';
 import api from '../api';
@@ -29,8 +30,8 @@ class AddCampaign extends Component {
   handleInputChange(stateFieldName, event) {
     let newState = {}
     let agency = ""
-    
-    if (stateFieldName === "file"){
+
+    if (stateFieldName === "file") {
       newState.file = event.target.files[0]
     }
     else {
@@ -45,7 +46,7 @@ class AddCampaign extends Component {
         newState.agencies.push(agency)
       }
     }
-    
+
     this.setState(newState)
   }
 
@@ -88,13 +89,16 @@ class AddCampaign extends Component {
         console.log('ERROR')
       })
   }
-  render() {              
+  render() {
     return (
       <div className="AddCampaign">
-        <h2>Add Campaign </h2>
-        <form>
-          Campaign Title/ Headline: <input type="text" value={this.state.title} onChange={(e) => {this.handleInputChange("title", e)}} /> <br/>
-          Fundraising Type: 
+        <Container>
+          <Row>
+            <Col lg="4">
+              <h2>Add Campaign </h2>
+              <form>
+                Campaign Title/ Headline: <input type="text" value={this.state.title} onChange={(e) => { this.handleInputChange("title", e) }} /> <br />
+                Fundraising Type:
           {/* 
           "Appeal",
           "Acquisition",
@@ -106,44 +110,47 @@ class AddCampaign extends Component {
           "Sponsorship",
           "Newsletters"
           */}
-          <select name="fundraisingType" value={this.state.fundraisingType} onChange={(e) => {this.handleInputChange("fundraisingType", e)}}>
-            <option value="Appeal">Appeal</option>
-            <option value="Acquisition">Acquisition</option>
-            <option value="Bequest">Bequest</option>
-            <option value="Regular Giving">Regular Giving</option>
-            <option value="Events">Events</option>
-            <option value="Community Fundraising">Community Fundraising</option>
-            <option value="Raffles">Raffles</option>
-            <option value="Sponsorship">Sponsorship</option>
-            <option value="Newsletters">Newsletters</option>
-          </select>
-          
-          <br/>
-          Campaign Date Range:
-              <label htmlFor="dateRangeStart">Start</label>
-              <input type="date" id="start" name="dateRangeStart"
-                    value={this.state.dateRangeStart}
-                    onChange={(e) => {this.handleInputChange("dateRangeStart", e)}} />
+                <select name="fundraisingType" value={this.state.fundraisingType} onChange={(e) => { this.handleInputChange("fundraisingType", e) }}>
+                  <option value="Appeal">Appeal</option>
+                  <option value="Acquisition">Acquisition</option>
+                  <option value="Bequest">Bequest</option>
+                  <option value="Regular Giving">Regular Giving</option>
+                  <option value="Events">Events</option>
+                  <option value="Community Fundraising">Community Fundraising</option>
+                  <option value="Raffles">Raffles</option>
+                  <option value="Sponsorship">Sponsorship</option>
+                  <option value="Newsletters">Newsletters</option>
+                </select>
 
-              <label htmlFor="dateRangeEnd">End</label>
-              <input type="date" id="end" name="dateRangeEnd"
-                    value={this.state.dateRangeEnd} 
-                    onChange={(e) => {this.handleInputChange("dateRangeEnd", e)}} />
-          <br/>
-          Campaign Preview Image URL: <input type="text" value={this.state.pictureUrl} onChange={(e) => {this.handleInputChange("pictureUrl", e)}}  /> 
-          <input type="file" name="picture" onChange={(e) => {this.handleInputChange("file", e)}} />
-          <br/>
-          Description: <textarea value={this.state.description} cols="30" rows="10" onChange={(e) => {this.handleInputChange("description", e)}} ></textarea> <br/>
-          Agencies: <input type="text" value={this.state.agencies} onChange={(e) => {this.handleInputChange("agencies", e)}}  />
-          <button onClick={(e) => this.handleClick(e)}>Create campaign</button>
-        </form>
-        <div style={{
-          margin: 10,
-          backgroundColor: "red",
-          display: this.state.message ? "block" : "none"
-        }}>
-          {this.state.message}
-        </div>
+                <br />
+                Campaign Date Range:
+              <label htmlFor="dateRangeStart">Start</label>
+                <input type="date" id="start" name="dateRangeStart"
+                  value={this.state.dateRangeStart}
+                  onChange={(e) => { this.handleInputChange("dateRangeStart", e) }} />
+
+                <label htmlFor="dateRangeEnd">End</label>
+                <input type="date" id="end" name="dateRangeEnd"
+                  value={this.state.dateRangeEnd}
+                  onChange={(e) => { this.handleInputChange("dateRangeEnd", e) }} />
+                <br />
+                Campaign Preview Image URL: <input type="text" value={this.state.pictureUrl} onChange={(e) => { this.handleInputChange("pictureUrl", e) }} />
+                <input type="file" name="picture" onChange={(e) => { this.handleInputChange("file", e) }} />
+                <br />
+                Description: <textarea value={this.state.description} cols="30" rows="10" onChange={(e) => { this.handleInputChange("description", e) }} ></textarea> <br />
+                Agencies: <input type="text" value={this.state.agencies} onChange={(e) => { this.handleInputChange("agencies", e) }} />
+                <button onClick={(e) => this.handleClick(e)}>Create campaign</button>
+              </form>
+              <div style={{
+                margin: 10,
+                backgroundColor: "red",
+                display: this.state.message ? "block" : "none"
+              }}>
+                {this.state.message}
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }
