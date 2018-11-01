@@ -202,7 +202,6 @@ router.delete("/:charid/campaigns/:campid", (req, res, next) => {
       let promises = []
       // remove each of its materials
       removedCampaign._materials.forEach((element, i) => {
-        console.log("removing material: ", element) 
         promises.push(Material.findByIdAndRemove(element))
       })
       return Promise.all(promises)

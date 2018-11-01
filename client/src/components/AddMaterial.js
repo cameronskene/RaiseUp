@@ -54,7 +54,6 @@ class AddMaterial extends Component {
     
     api.postMaterials(data)
       .then(result => {
-        console.log('SUCCESS!')
         this.setState({
           title: "",
           channels: "Direct Mail",
@@ -74,7 +73,7 @@ class AddMaterial extends Component {
         }, 2000)
       })
       .catch(err => {
-        console.log('ERROR')
+        console.log(err)
       })
   }
   render() {        

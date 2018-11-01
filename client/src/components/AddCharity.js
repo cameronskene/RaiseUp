@@ -17,8 +17,7 @@ class AddCharity extends Component {
   }
 
   handleInputChange(stateFieldName, event) {
-    console.log("handleInputChange");
-
+    
     let newState = {}
     if (stateFieldName === "file") {
       newState.file = event.target.files[0]
@@ -37,13 +36,13 @@ class AddCharity extends Component {
       sector: this.state.sector,
       description: this.state.description,
       website: this.state.website,
-      // try changing back to this.state.pictureUrl
+
       pictureUrl: this.state.file,
       message: null
     }
     api.postCharities(data)
       .then(result => {
-        // console.log('SUCCESS!')
+
         this.setState({
           file: null,
           name: "",
@@ -60,7 +59,7 @@ class AddCharity extends Component {
         }, 2000)
       })
       .catch(err => {
-        console.log('ERROR')
+        console.log(err)
       })
   }
   render() {

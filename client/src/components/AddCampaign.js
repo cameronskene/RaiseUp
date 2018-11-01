@@ -77,7 +77,7 @@ class AddCampaign extends Component {
         }, 2000)
       })
       .catch(err => {
-        console.log('ERROR')
+        console.log(err)
       })
   }
   render() {

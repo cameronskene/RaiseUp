@@ -21,11 +21,10 @@ class Login extends Component {
     e.preventDefault()
     api.login(this.state.email, this.state.password)
       .then(result => {
-        console.log('SUCCESS!')
         this.props.history.push("/") // Redirect to the home page
       })
       .catch(err => {
-        console.log('ERROR')
+        console.log(err)
       })
   }
 

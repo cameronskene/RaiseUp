@@ -14,7 +14,6 @@ export default {
 
   formatQueryString(params) {
     var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
-    // console.log("querystring in api.js, ", queryString)
     return queryString
   },
   getCampaignsByQuery(params) {
@@ -74,17 +73,9 @@ export default {
       })
       .then(res => res.data)
       .catch(errHandler);
-
-
-    // return service
-    //   .post(`/charities/${data._charity}/campaigns/add`, data)
-    //   .then(res => { console.log("res.data in api.js: ", res.data);
-    //     return res.data})
-    //   .catch(errHandler);
   },
 
   getMaterial(charid, campid, mateid) {
-    console.log("getMaterial api.js method, charid: ", charid)
     return service
       .get(`/charities/${charid}/campaigns/${campid}/materials/${mateid}`)
       .then(res => res.data)
@@ -105,11 +96,6 @@ export default {
       })
       .then(res => res.data)
       .catch(errHandler);
-
-    // return service
-    //   .post(`/charities/${data._charity}/campaigns/${data._campaign}/materials/add`, data)
-    //   .then(res => { res.data })
-    //   .catch(errHandler);
   },
 
   getSecret() {
