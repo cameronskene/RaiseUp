@@ -1,5 +1,5 @@
 {
-  "name": "fullstack-2018-03-02",
+  "name": "RaiseUp",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -10,7 +10,6 @@
     "dev:client": "cd client && npm run start"
   },
   "dependencies": {
-    "bootstrap": "^4.1.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-fontawesome": "^1.6.1",
