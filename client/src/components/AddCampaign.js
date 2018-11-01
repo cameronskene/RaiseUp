@@ -1,6 +1,7 @@
 //ADD CAMPAIGN COMPONENT
 
 import React, { Component } from 'react';
+import { Row, Col, Container } from 'reactstrap';
 import api from '../api';
 
 
@@ -83,6 +84,9 @@ class AddCampaign extends Component {
   render() {
     return (
       <div className="AddCampaign">
+        <Container>
+          <Row>
+            <Col>
         <h2>Add Campaign </h2>
         <form>
           Campaign Title/ Headline: <input type="text" value={this.state.title} onChange={(e) => {this.handleInputChange("title", e)}} /> <br/>

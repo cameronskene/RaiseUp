@@ -19,21 +19,19 @@ class Home extends Component {
       activeCampaign: null
     }
   }
+
   componentDidMount() {
-    if (this.state.data[0].name === "") {
-      api.getCharities()
-      .then(charities => {
-        charities.forEach(charity => {
-          // what the fuck is this?
-          charity._charity = null
-        })
-        this.setState({
-          data: charities,
-          active: charities[0]
-        })
-        .catch(err => console.log("home js api getCharities error: ", err))
-    }
+    api.getCharities()
+    .then(data => {
+      this.setState({
+        data: data,
+        active: data[0]
+      })
+    })
+    .catch(err => console.log(err))
   }
+  
+  
 
   // please remove
   componentWillReceiveProps(nextProps) {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Row, Col, Container } from 'reactstrap';
 import api from '../api';
 
 

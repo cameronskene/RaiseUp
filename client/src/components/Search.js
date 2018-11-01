@@ -79,7 +79,7 @@ class Search extends React.Component {
                   {this.state.dropdownTag}
                 </DropdownToggle>
                 <div className="selector">
-                <DropdownMenu left> 
+                <DropdownMenu left="true"> 
                   <DropdownItem data-action="name" onClick={this.handleDropdownClick}>
                     Charity Name
                   </DropdownItem>
