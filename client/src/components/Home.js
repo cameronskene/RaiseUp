@@ -23,9 +23,8 @@ class Home extends Component {
   componentDidMount() {
     api.getCharities()
     .then(data => {
-      console.log("Home.js component did mount api: getCharities()")
       this.setState({
-        data: data,
+        data,
         active: data[0]
       })
     })
@@ -44,14 +43,17 @@ class Home extends Component {
     }
   }
 
-  handleResults(results) {
-    this.setState({
-      data: results,
-      active: results[0],
-      campaignList: false,
-      materialList: false,
+  handleSearchQuery(searchQuery) {
+    api.getCampaignsByQuery(searchQuery)
+    .then(results => {
+      this.setState({
+        data: results,
+        active: results[0],
+        campaignList: false,
+        materialList: false,
+      })
     })
-  }
+  };
 
   handleCampaignActive(campaign) {
     this.setState({
@@ -60,7 +62,6 @@ class Home extends Component {
   }
   
   render() {
-    // what the fuck is this?
     const MaterialsRoute = ({ data }) => (
       <Route path="/charities/:charid/campaigns/:campid/materials"
         render={(props) => { return <MaterialList {...props} data={data} /> }}
@@ -68,13 +69,13 @@ class Home extends Component {
     );
     return (
       <div className="Home">
-        <Search handleResults={this.handleResults.bind(this)} />
+        <Search handleSearchQuery={this.handleSearchQuery.bind(this)} />
         <Container>
           <Row>
             <Col className="home-col"> <h4>Charities</h4><CharityList active={this.state.active} type={this.state.type} data={this.state.data} /></Col>
             <Col className="home-col"> <h4>Campaigns</h4>{this.state.campaignList && <Route path="/charities/:id" render={(props) => { return <CampaignList {...props} handleCampaignActive={this.handleCampaignActive.bind(this)} /> }} />}</Col>
             <Col className="home-col" xs="6"> <h4>Materials</h4>
-              {this.state.materialList && this.state.activeCampaign && <MaterialsRoute data={this.state.activeCampaign} />}
+              {this.state.materialList && this.state.activeCampaign && <MaterialsRoute data={this.state.activeCampaign} /> }
               {this.state.materialList && !this.state.activeCampaign && <MaterialsRoute />}
             </Col>
           </Row>

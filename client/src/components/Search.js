@@ -24,45 +24,46 @@ class Search extends React.Component {
     this.handleDropdownClick = this.handleDropdownClick.bind(this)
     this.handleSearch = this.handleSearch.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this)
+
     this.state = {
       isOpen: false,
       searchBy: "",
       query: "",
       dropdownTag: "Search by"
     };
-  }
+  };
+
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen
     });
-  }
+  };
+
   handleInputChange(e) {
     this.setState({
       [e.target.name]: e.target.value,
     })
-  }
+  };
 
   handleSearch(e) {
-    e.preventDefault()
-    let searchQuery = {[this.state.searchBy]: this.state.query}
-    api.getCampaignsByQuery(searchQuery)
-    .then(result => {
-      this.props.handleResults(result)
-      this.setState({
-        isOpen: false,
-        searchBy: "",
-        query: "",
-        dropdownTag: "Search by"
-      })
-      
+    e.preventDefault();
+    let searchQuery = {[this.state.searchBy]: this.state.query};
+    this.props.handleSearchQuery(searchQuery);
+    this.setState({
+      isOpen: false,
+      searchBy: "",
+      query: "",
+      dropdownTag: "Search by"
     })
-  }
+  };
+
   handleDropdownClick(e) {
     this.setState({
       searchBy: e.target.getAttribute("data-action"),
       dropdownTag: e.target.firstChild.data 
     })
-  }
+  };
+
   render() {
     return (
       <div>
@@ -101,10 +102,10 @@ class Search extends React.Component {
                 </div>
               </UncontrolledDropdown>
               <div>
-              <Form inline >
+              <Form  onSubmit={this.handleSearch} inline >
                 <FormGroup row>
                     <Input className="mb-2 mr-sm-2 mb-sm-0" type="text" name="query" onChange={this.handleInputChange} id="search" value={this.state.query} placeholder="What are you looking for?" />
-                    <Button className="mb-2 mr-sm-2 mb-sm-0" onClick={this.handleSearch}>Search</Button>
+                    <Button className="mb-2 mr-sm-2 mb-sm-0" >Search</Button>
                 </FormGroup>
               </Form>
               </div>  
@@ -115,5 +116,6 @@ class Search extends React.Component {
       </div>
     );
   }
-}
+};
+
 export default Search;

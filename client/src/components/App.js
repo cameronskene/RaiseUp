@@ -19,11 +19,7 @@ class App extends Component {
   handleLogoutClick(e) {
     api.logout()
   }
-  handleResults(results) {
-    this.setState({
-      data: results
-    })
-  }
+
 
   render() {  
                
