@@ -12,7 +12,7 @@ class Home extends Component {
     super(props)
     this.state = {
       data: [{ name: "" }],
-      activeCharity: {},
+      activeCharity: { name: "" },
       activeCampaign: {}
     }
   }
@@ -23,21 +23,38 @@ class Home extends Component {
       this.setState({
         data: result
       })
+      const pathname = this.props.location.pathname;
+      if(pathname !== '/') {
+        let charid = pathname.substring(11, 35);
+        api.getCharity(charid)
+        .then(result => {
+          this.setState({
+            activeCharity: result
+          })
+        })
+      }
     })
     .catch(err => console.log(err))
   }
   
 
   handleSearchQuery(searchQuery) {
-    api.getCampaignsByQuery(searchQuery)
-    .then(results => {
+    api.getCharitiesByQuery(searchQuery)
+    .then(result => {
       this.setState({
-        data: results,
+        data: result
       })
     })
   };
 
-
+  handleActiveCharity(activeCharityID){
+    api.getCharity(activeCharityID)
+    .then(result => {
+      this.setState({
+        activeCharity: result
+      })
+    })
+  }
   
   render() {
     // const CampaignsRoute = ({ data }) => (
@@ -57,7 +74,7 @@ class Home extends Component {
           <Row>
             <Col className="home-col"> 
               <h4>Charities</h4>
-              <CharityList  data={this.state.data} />
+              <CharityList  data={this.state.data} activeCharity={this.state.activeCharity} handleActiveCharity={this.handleActiveCharity.bind(this)} />
             </Col>
             <Col className="home-col"> 
               {/* <h4>Campaigns</h4> 

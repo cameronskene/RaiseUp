@@ -3,9 +3,10 @@ import { ListGroup } from 'reactstrap';
 import CharityCard from './CharityCard';
 
 class CharityList extends Component {
-
+  
   render() {
-  const data = this.props.data.map(d =>  <CharityCard key={d._id} data={d}/>)     
+  const { handleActiveCharity } = this.props
+  const data = this.props.data.map(d =>  <CharityCard key={d._id} data={d} activeCharity={this.props.activeCharity}  handleActiveCharity={handleActiveCharity}/>)     
     return (
       <div className="Charities">
         <ListGroup>
@@ -14,6 +15,6 @@ class CharityList extends Component {
       </div>
     );
   }
-}
+};
 
 export default CharityList;

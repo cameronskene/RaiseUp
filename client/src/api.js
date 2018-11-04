@@ -16,7 +16,7 @@ export default {
     var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
     return queryString
   },
-  getCampaignsByQuery(params) {
+  getCharitiesByQuery(params) {
     let queryString = this.formatQueryString(params)
     return service
       .get(`/campaigns/search/?${queryString}`)

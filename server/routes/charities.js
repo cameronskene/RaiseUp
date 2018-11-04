@@ -21,7 +21,7 @@ const storage = cloudinaryStorage({
 
 const parser = multer({ storage });
 
-// Route to get all charities
+// Route to get all charities. This is used on initial page load, and fills the CharityList component. It is only when an active charity is clicked by the user that its campaigns and materials are populated.
 router.get("/", (req, res, next) => {
   Charity.find()
     .then(charities => {
@@ -30,7 +30,7 @@ router.get("/", (req, res, next) => {
     .catch(err => next(err));
 });
 
-// route to find a charity by its id, also populates its campaigns
+// route to find a charity by its id, also populates its campaigns and materials. This is used when an active charity has been selected by the user.
 router.get("/:id", (req, res, next) => {
   let id = req.params.id;
   Charity.findById(id)

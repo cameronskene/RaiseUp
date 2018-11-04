@@ -12,7 +12,6 @@ import api from '../api';
 class App extends Component {
   constructor(props) {
     super(props)
-
     api.loadUser();
   }
 
@@ -28,10 +27,10 @@ class App extends Component {
         <Switch>
           <Route path="/" component={Home}/>
           <Route path="/add-charity" component={AddCharity} />
-          <Route path="/signup" component={Signup} />
-          <Route path="/login" component={Login} />
           <Route path={"/charities/:id/campaigns/add"} component={AddCampaign} />
           <Route path={"/charities/:charid/campaigns/:campid/materials/add"} component={AddMaterial} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/login" component={Login} />
           <Route render={() => <h2>404- Page not found</h2>} />
         </Switch>
       </div>
