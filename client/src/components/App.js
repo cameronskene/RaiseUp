@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
-import AddCharity from './AddCharity';
-import AddCampaign from './AddCampaign';
-import AddMaterial from './AddMaterial';
-import Login from './Login';
-import Signup from './Signup';
+import AddCharity from './Charity/CRUD/AddCharity';
+import AddCampaign from './Campaign/CRUD/AddCampaign';
+import AddMaterial from './Material/CRUD/AddMaterial';
+import Login from './Authentication/Login';
+import Signup from './Authentication/Signup';
 import api from '../api';
 
 

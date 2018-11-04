@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import api from '../api';
+import api from '../../api';
 
-class Login extends Component {
+class Signup extends Component {
   constructor(props) {
     super(props)
     this.state = {
       email: "",
+      name: "",
       password: "",
     }
   }
@@ -19,9 +20,14 @@ class Login extends Component {
 
   handleClick(e) {
     e.preventDefault()
-    api.login(this.state.email, this.state.password)
+    let data = {
+      email: this.state.email,
+      name: this.state.name,
+      password: this.state.password,
+    }
+    api.signup(data)
       .then(result => {
-        this.props.history.push("/") // Redirect to the home page
+        this.props.history.push("/login") // Redirect to the login page
       })
       .catch(err => {
         console.log(err)
@@ -30,16 +36,17 @@ class Login extends Component {
 
   render() {   
     return (
-      <div className="Login">
-        <h2>Login</h2>
+      <div className="Signup">
+        <h2>Signup</h2>
         <form>
           Email: <input type="text" value={this.state.email} onChange={(e) => {this.handleInputChange("email", e)}} /> <br/>
+          Name: <input type="text" value={this.state.name} onChange={(e) => {this.handleInputChange("name", e)}} /> <br/>
           Password: <input type="password" value={this.state.password} onChange={(e) => {this.handleInputChange("password", e)}}  /> <br/>
-          <button onClick={(e) => this.handleClick(e)}>Login</button>
+          <button onClick={(e) => this.handleClick(e)}>Signup</button>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+export default Signup;

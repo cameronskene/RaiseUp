@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ListGroup} from 'reactstrap';
+import { ListGroup } from 'reactstrap';
 import CharityCard from './CharityCard';
 
 class CharityList extends Component {

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Row, Col, Container } from 'reactstrap';
 import { Route } from 'react-router-dom';
 import Search from './Search';
-import CharityList from './CharityList';
-import CampaignList from './CampaignList';
-import MaterialList from './MaterialList';
+import CharityList from './Charity/CharityList';
+import CampaignList from './Campaign/CampaignList';
+import MaterialList from './Material/MaterialList';
 import api from '../api';
 
 class Home extends Component {
@@ -23,6 +23,7 @@ class Home extends Component {
   componentDidMount() {
     api.getCharities()
     .then(data => {
+      console.log("Home.js component did mount api: getCharities()")
       this.setState({
         data: data,
         active: data[0]
