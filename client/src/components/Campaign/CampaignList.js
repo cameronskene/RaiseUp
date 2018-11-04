@@ -15,7 +15,7 @@ class CampaignList extends Component {
 
   // please remove
   componentWillReceiveProps(nextProps) {
-    api.getCharity(nextProps.match.params.id).then(result => {
+    api.getCharity(nextProps.match.params.charid).then(result => {
       this.setState({
         data: result
       })
@@ -23,7 +23,7 @@ class CampaignList extends Component {
   }
   componentDidMount() {
     if (this.state.data === "") {
-      api.getCharity(this.props.match.params.id).then(result => {
+      api.getCharity(this.props.match.params.charid).then(result => {
         this.setState({
           data: result
         })

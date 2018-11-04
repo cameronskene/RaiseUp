@@ -14,7 +14,6 @@ import {
   FormGroup,
   Input,
   Button } from 'reactstrap';
-import api from '../api';
 
 class Search extends React.Component {
   constructor(props) {

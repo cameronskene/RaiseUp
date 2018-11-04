@@ -12,71 +12,60 @@ class Home extends Component {
     super(props)
     this.state = {
       data: [{ name: "" }],
-      type: "loading",
-      active: [],
-      campaignList: false,
-      materialList: false,
-      activeCampaign: null
+      activeCharity: {},
+      activeCampaign: {}
     }
   }
 
   componentDidMount() {
     api.getCharities()
-    .then(data => {
+    .then(result => {
       this.setState({
-        data,
-        active: data[0]
+        data: result
       })
     })
     .catch(err => console.log(err))
   }
   
-  
-
-  // please remove
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.location.pathname !== "/") {
-      this.setState({
-        campaignList: true,
-        materialList: true,
-      })
-    }
-  }
 
   handleSearchQuery(searchQuery) {
     api.getCampaignsByQuery(searchQuery)
     .then(results => {
       this.setState({
         data: results,
-        active: results[0],
-        campaignList: false,
-        materialList: false,
       })
     })
   };
 
-  handleCampaignActive(campaign) {
-    this.setState({
-      activeCampaign: campaign
-    })
-  }
+
   
   render() {
-    const MaterialsRoute = ({ data }) => (
-      <Route path="/charities/:charid/campaigns/:campid/materials"
-        render={(props) => { return <MaterialList {...props} data={data} /> }}
-      />
-    );
+    // const CampaignsRoute = ({ data }) => (
+    //   <Route path="/charities/:charid/campaigns" 
+    //   render={ (props) =>  <CampaignList {...props} data={data}/> }
+    //   />
+    // );
+    // const MaterialsRoute = ({ data }) => (
+    //   <Route path="/charities/:charid/campaigns/:campid/materials"
+    //     render={ (props) =>  <MaterialList {...props}  data={data} /> }
+    //   />
+    // );
     return (
       <div className="Home">
         <Search handleSearchQuery={this.handleSearchQuery.bind(this)} />
-        <Container>
+        <Container> 
           <Row>
-            <Col className="home-col"> <h4>Charities</h4><CharityList active={this.state.active} type={this.state.type} data={this.state.data} /></Col>
-            <Col className="home-col"> <h4>Campaigns</h4>{this.state.campaignList && <Route path="/charities/:id" render={(props) => { return <CampaignList {...props} handleCampaignActive={this.handleCampaignActive.bind(this)} /> }} />}</Col>
-            <Col className="home-col" xs="6"> <h4>Materials</h4>
-              {this.state.materialList && this.state.activeCampaign && <MaterialsRoute data={this.state.activeCampaign} /> }
-              {this.state.materialList && !this.state.activeCampaign && <MaterialsRoute />}
+            <Col className="home-col"> 
+              <h4>Charities</h4>
+              <CharityList  data={this.state.data} />
+            </Col>
+            <Col className="home-col"> 
+              {/* <h4>Campaigns</h4> 
+              <CampaignsRoute data={} />  */}
+            </Col>
+            <Col className="home-col" xs="6"> 
+              {/* <h4>Materials</h4>
+              <MaterialsRoute data={} />  */}
             </Col>
           </Row>
         </Container>
