@@ -1,41 +1,40 @@
-require('dotenv').config()
+require("dotenv").config();
 
-const express = require('express');
-const path = require('path');
-// const favicon = require('serve-favicon');
-const logger = require('morgan');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const passport = require('passport');
+const express = require("express");
+const path = require("path");
+const logger = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const passport = require("passport");
 const { Strategy, ExtractJwt } = require("passport-jwt");
 
 const config = require("./configs/index");
-var User = require('./models/user');
-var authRoutes = require('./routes/auth');
-var usersRoutes = require('./routes/users');
-var charitiesRoutes = require('./routes/charities');
-var campaignsRoutes = require('./routes/campaigns');
+var User = require("./models/user");
+var authRoutes = require("./routes/auth");
+var usersRoutes = require("./routes/users");
+var charitiesRoutes = require("./routes/charities");
+var searchRoutes = require("./routes/search");
 
-require('./configs/database');
-require('./configs/cloudinary');
-
+require("./configs/database");
+require("./configs/cloudinary");
 
 const app = express();
 
 app.use(cors());
 
-app.use(logger('dev'));
+app.use(logger("dev"));
 app.use(bodyParser.json());
 // app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
 
 // Set the public folder to "~/client/build/"
 // Example: http://localhost:3030/favicon.ico => Display "~/client/build/favicon.ico"
-app.use(express.static(path.join(__dirname, '../client/build')));
-
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.use(passport.initialize());
 // Create the strategy for JWT
@@ -66,33 +65,30 @@ const strategy = new Strategy(
 passport.use(strategy);
 
 // List all your API routes
-app.use('/api', authRoutes);
-app.use('/api/charities', charitiesRoutes);
-app.use('/api/campaigns', campaignsRoutes);
-app.use('/api/users', usersRoutes);
-
-
+app.use("/api", authRoutes);
+app.use("/api/charities", charitiesRoutes);
+app.use("/api/search", searchRoutes);
+app.use("/api/users", usersRoutes);
 
 // For any routes that starts with "/api", catch 404 and forward to error handler
-app.use('/api/*', (req, res, next) => {
-  let err = new Error('Not Found');
+app.use("/api/*", (req, res, next) => {
+  let err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
 
 // For any other routes, redirect to the index.html file of React
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build/index.html"));
 });
-
 
 // Error handler
 app.use((err, req, res, next) => {
   err.status = err.status || 500;
   console.error("----- An error happened -----");
   console.error(err);
-  if (process.env.NODE_ENV === 'production')
-    res.json(err); // A limited amount of information sent in production
+  if (process.env.NODE_ENV === "production") res.json(err);
+  // A limited amount of information sent in production
   else
     res.json(JSON.parse(JSON.stringify(err, Object.getOwnPropertyNames(err))));
 });

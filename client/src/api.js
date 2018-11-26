@@ -1,7 +1,8 @@
-import axios from 'axios';
+import axios from "axios";
 
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:3030/api',
+  baseURL:
+    process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3030/api"
 });
 
 const errHandler = err => {
@@ -13,21 +14,23 @@ export default {
   service: service,
 
   formatQueryString(params) {
-    var queryString = Object.keys(params).map(key => key + '=' + params[key]).join('&');
-    return queryString
+    var queryString = Object.keys(params)
+      .map(key => key + "=" + params[key])
+      .join("&");
+    return queryString;
   },
   getCharitiesByQuery(params) {
-    let queryString = this.formatQueryString(params)
+    let queryString = this.formatQueryString(params);
     return service
-      .get(`/campaigns/search/?${queryString}`)
+      .get(`/search/?${queryString}`)
       .then(res => res.data)
       .catch(errHandler);
   },
   getCharities() {
     return service
-      .get('/charities')
+      .get("/charities")
       .then(res => {
-        return res.data
+        return res.data;
       })
       .catch(errHandler);
   },
@@ -41,13 +44,13 @@ export default {
     const formData = new FormData();
 
     Object.keys(data).forEach(key => {
-      formData.append(key, data[key])
+      formData.append(key, data[key]);
     });
     return service
-      .post('/charities', formData, {
+      .post("/charities", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          "Content-Type": "multipart/form-data"
+        }
       })
       .then(res => res.data)
       .catch(errHandler);
@@ -63,13 +66,13 @@ export default {
   postCampaigns(data) {
     const formData = new FormData();
     Object.keys(data).forEach(key => {
-      formData.append(key, data[key])
+      formData.append(key, data[key]);
     });
     return service
       .post(`/charities/${data._charity}/campaigns/add`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+          "Content-Type": "multipart/form-data"
+        }
       })
       .then(res => res.data)
       .catch(errHandler);
@@ -85,65 +88,69 @@ export default {
   postMaterials(data) {
     const formData = new FormData();
     Object.keys(data).forEach(key => {
-      formData.append(key, data[key])
+      formData.append(key, data[key]);
     });
 
     return service
-      .post(`/charities/${data._charity}/campaigns/${data._campaign}/materials/add`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      .post(
+        `/charities/${data._charity}/campaigns/${data._campaign}/materials/add`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }
+      )
       .then(res => res.data)
       .catch(errHandler);
   },
 
   getSecret() {
     return service
-      .get('/secret')
+      .get("/secret")
       .then(res => res.data)
       .catch(errHandler);
   },
 
   signup(userInfo) {
     return service
-      .post('/signup', userInfo)
+      .post("/signup", userInfo)
       .then(res => res.data)
       .catch(errHandler);
   },
 
   login(email, password) {
     return service
-      .post('/login', {
+      .post("/login", {
         email,
-        password,
+        password
       })
       .then(res => {
         const { data } = res;
-        localStorage.setItem('user', JSON.stringify(data));
-        axios.defaults.headers.common['Authorization'] = 'Bearer ' + data.token;
+        localStorage.setItem("user", JSON.stringify(data));
+        axios.defaults.headers.common["Authorization"] = "Bearer " + data.token;
         return data;
       })
       .catch(errHandler);
   },
 
   logout() {
-    delete axios.defaults.headers.common['Authorization'];
-    localStorage.removeItem('user');
+    delete axios.defaults.headers.common["Authorization"];
+    localStorage.removeItem("user");
   },
 
   loadUser() {
-    const userData = localStorage.getItem('user');
+    const userData = localStorage.getItem("user");
     if (!userData) return false;
     const user = JSON.parse(userData);
     if (user.token && user.name) {
-      axios.defaults.headers.common['Authorization'] = 'Bearer ' + user.token;
+      axios.defaults.headers.common["Authorization"] = "Bearer " + user.token;
       return user;
     }
     return false;
   },
 
   isLoggedIn() {
-    return localStorage.getItem('user') != null
-  },
+    return localStorage.getItem("user") != null;
+  }
 };

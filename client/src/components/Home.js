@@ -59,11 +59,12 @@ class Home extends Component {
   }
 
   render() {
-    // const CampaignsRoute = ({ data }) => (
-    //   <Route path="/charities/:charid/campaigns"
-    //   render={ (props) =>  <CampaignList {...props} data={data}/> }
-    //   />
-    // );
+    const CampaignsRoute = ({ data }) => (
+      <Route
+        path="/charities/:charid/campaigns"
+        render={props => <CampaignList {...props} data={data} />}
+      />
+    );
     // const MaterialsRoute = ({ data }) => (
     //   <Route path="/charities/:charid/campaigns/:campid/materials"
     //     render={ (props) =>  <MaterialList {...props}  data={data} /> }
