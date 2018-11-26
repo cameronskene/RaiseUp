@@ -16,22 +16,22 @@ class CampaignCard extends Component {
           className="thin-card"
           onClick={this.handleCampaignClick.bind(this)}
         >
-          {/* <Link to={}> */}
-          <Row>
-            <Col className="no-border flex">
-              <div className="whitespace flex">
-                <img
-                  className="thin-card-img campaign-img"
-                  src={data.pictureUrl}
-                  alt={"Image of " + data.title + " from " + data._charity}
-                />
-              </div>
-            </Col>
-            <Col className="no-border flex">
-              <div className="thin-card-txt">{data.title}</div>
-            </Col>
-          </Row>
-          {/* </Link>   */}
+          <Link to={`/charities/${data._charity}/campaigns/${data._id}`}>
+            <Row>
+              <Col className="no-border flex">
+                <div className="whitespace flex">
+                  <img
+                    className="thin-card-img campaign-img"
+                    src={data.pictureUrl}
+                    alt={"Image of " + data.title + " from " + data._charity}
+                  />
+                </div>
+              </Col>
+              <Col className="no-border flex">
+                <div className="thin-card-txt">{data.title}</div>
+              </Col>
+            </Row>
+          </Link>
         </ListGroupItem>
       </div>
     );

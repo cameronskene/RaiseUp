@@ -25,12 +25,15 @@ class Home extends Component {
           data: result
         });
         // persist through refreshes + allow for link sharing
+        // to do: why doesn't this.props.match.params work? -> probably because I'm not actually using ReactRouter routes
         const pathname = this.props.location.pathname;
         if (pathname !== "/") {
-          let charid = pathname.substring(11, 35);
+          const charid = pathname.substring(11, 35);
+          const campid = pathname.substring(46, 70);
           api.getCharity(charid).then(result => {
             this.setState({
-              activeCharity: result
+              activeCharity: result,
+              activeCampaign: campid
             });
           });
         }
@@ -77,8 +80,6 @@ class Home extends Component {
     //     render={ (props) =>  <MaterialList {...props}  data={data} /> }
     //   />
     // );
-
-    console.log("render Home -- data: ", this.state.activeCharity);
 
     const { activeCharity, activeCampaign, data } = this.state;
     return (
