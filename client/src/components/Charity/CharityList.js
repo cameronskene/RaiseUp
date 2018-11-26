@@ -13,11 +13,8 @@ class CharityList extends Component {
         handleActiveCharity={handleActiveCharity}
       />
     ));
-    return (
-      <div className="Charities">
-        <ListGroup>{data}</ListGroup>
-      </div>
-    );
+
+    return <ListGroup className="Charities">{data}</ListGroup>;
   }
 }
 
