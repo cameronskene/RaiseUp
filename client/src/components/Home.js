@@ -49,7 +49,8 @@ class Home extends Component {
   handleActiveCharity(activeCharityID) {
     // this handles the isActive for the clicked card while the async call is being made -- makes the user's click feel more 'instant'
     this.setState({
-      activeCharity: activeCharityID
+      activeCharity: activeCharityID,
+      activeCampaign: { name: "" }
     });
     api.getCharity(activeCharityID).then(result => {
       this.setState({
@@ -58,18 +59,28 @@ class Home extends Component {
     });
   }
 
+  handleActiveCampaign(activeCampaignID) {
+    this.setState({
+      activeCampaign: activeCampaignID
+    });
+  }
+
   render() {
-    const CampaignsRoute = ({ data }) => (
-      <Route
-        path="/charities/:charid/campaigns"
-        render={props => <CampaignList {...props} data={data} />}
-      />
-    );
+    // const CampaignsRoute = ({ data }) => (
+    //   <Route
+    //     path="/charities/:charid/campaigns"
+    //     render={props => <CampaignList {...props} data={data} />}
+    //   />
+    // );
     // const MaterialsRoute = ({ data }) => (
     //   <Route path="/charities/:charid/campaigns/:campid/materials"
     //     render={ (props) =>  <MaterialList {...props}  data={data} /> }
     //   />
     // );
+
+    console.log("render Home -- data: ", this.state.activeCharity);
+
+    const { activeCharity, activeCampaign, data } = this.state;
     return (
       <div className="Home">
         <Search handleSearchQuery={this.handleSearchQuery.bind(this)} />
@@ -78,14 +89,18 @@ class Home extends Component {
             <Col className="home-col">
               <h4>Charities</h4>
               <CharityList
-                data={this.state.data}
-                activeCharity={this.state.activeCharity}
+                data={data}
+                activeCharity={activeCharity}
                 handleActiveCharity={this.handleActiveCharity.bind(this)}
               />
             </Col>
             <Col className="home-col">
-              {/* <h4>Campaigns</h4> 
-              <CampaignsRoute data={} />  */}
+              <h4>Campaigns</h4>
+              <CampaignList
+                data={activeCharity._campaigns}
+                activeCampaign={activeCampaign}
+                handleActiveCampaign={this.handleActiveCampaign.bind(this)}
+              />
             </Col>
             <Col className="home-col" xs="6">
               {/* <h4>Materials</h4>
