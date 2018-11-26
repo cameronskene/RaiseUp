@@ -34,9 +34,14 @@ class Home extends Component {
           const charid = pathname.substring(11, 35);
           const campid = pathname.substring(46, 70);
           api.getCharity(charid).then(result => {
-            const activeCampaign = result._campaigns.find(
-              campaign => campaign._id === campid
-            );
+            let activeCampaign = null;
+            if (campid) {
+              activeCampaign = result._campaigns.find(
+                campaign => campaign._id === campid
+              );
+            } else {
+              activeCampaign = { name: "" };
+            }
             this.setState({
               activeCharity: result,
               activeCampaign
@@ -56,7 +61,6 @@ class Home extends Component {
   }
 
   handleActiveCharity(activeCharityID) {
-    // this handles the isActive for the clicked card while the async call is being made -- makes the user's click feel more 'instant'
     this.setState({
       activeCharity: activeCharityID,
       activeCampaign: { name: "" }
@@ -72,24 +76,13 @@ class Home extends Component {
     const activeCampaign = this.state.activeCharity._campaigns.find(
       campaign => campaign._id === activeCampaignID
     );
+
     this.setState({
       activeCampaign
     });
   }
 
   render() {
-    // const CampaignsRoute = ({ data }) => (
-    //   <Route
-    //     path="/charities/:charid/campaigns"
-    //     render={props => <CampaignList {...props} data={data} />}
-    //   />
-    // );
-    // const MaterialsRoute = ({ data }) => (
-    //   <Route path="/charities/:charid/campaigns/:campid/materials"
-    //     render={ (props) =>  <MaterialList {...props}  data={data} /> }
-    //   />
-    // );
-
     const { activeCharity, activeCampaign, data } = this.state;
     return (
       <div className="Home">
