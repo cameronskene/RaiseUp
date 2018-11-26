@@ -12,7 +12,7 @@ class CampaignCard extends Component {
     return (
       <div className="CampaignCard">
         <ListGroupItem
-          active={data._id === activeCampaign}
+          active={data._id === activeCampaign._id}
           className="thin-card"
           onClick={this.handleCampaignClick.bind(this)}
         >

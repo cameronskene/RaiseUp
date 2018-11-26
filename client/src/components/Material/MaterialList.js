@@ -1,47 +1,35 @@
-import React, { Component } from 'react';
-import { Col } from 'reactstrap';
-import MaterialCard from './MaterialCard';
+import React, { Component } from "react";
+import { Col } from "reactstrap";
+import MaterialCard from "./MaterialCard";
 
 class MaterialList extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      data: {_id: null, _materials: null},
-    }
-  }
-  
-  componentDidMount() {
-    this.setState({
-      data: this.props.data
-    })
-  }
-  
-  render() {   
-    const materials = this.state.data._materials;
+  render() {
+    const { data } = this.props;
     let leftMaterialColumn = [];
     let rightMaterialColumn = [];
 
-    if (materials) {
-      materials.forEach((material, i) => {
-        if (i % 2 === 0)
-          leftMaterialColumn.push(<MaterialCard data={material}/>); 
-        else 
-          rightMaterialColumn.push(<MaterialCard data={material}/>);
+    if (data) {
+      data.forEach((material, i) => {
+        const materialCard = (
+          <MaterialCard data={material} key={material._id} />
+        );
+
+        if (i % 2 === 0) leftMaterialColumn.push(materialCard);
+        else rightMaterialColumn.push(materialCard);
       });
-    };
-
-    return (
-      <div className="MaterialList">
-            <Col xs="6" className="material-left">
-              {leftMaterialColumn.map(elem => elem)}
-            </Col> 
-            <Col xs="6" className="material-right">
-              {rightMaterialColumn.map(elem  => elem)}
-            </Col>  
-      </div>) 
+      return (
+        <div className="MaterialList">
+          <Col xs="6" className="material-left">
+            {leftMaterialColumn}
+          </Col>
+          <Col xs="6" className="material-right">
+            {rightMaterialColumn}
+          </Col>
+        </div>
+      );
+    }
+    return <div className="MaterialsList" />;
   }
-}          
-
-
+}
 
 export default MaterialList;
