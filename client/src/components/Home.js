@@ -13,7 +13,7 @@ class Home extends Component {
     this.state = {
       data: [{ name: "" }],
       activeCharity: { name: "" },
-      activeCampaign: {}
+      activeCampaign: { title: "" }
     };
   }
 
@@ -36,11 +36,9 @@ class Home extends Component {
           api.getCharity(charid).then(result => {
             let activeCampaign = null;
             if (campid) {
-              activeCampaign = result._campaigns.find(
-                campaign => campaign._id === campid
-              );
+              activeCampaign = result._campaigns.find(campaign => campaign._id === campid);
             } else {
-              activeCampaign = { name: "" };
+              activeCampaign = { title: "" };
             }
             this.setState({
               activeCharity: result,
@@ -55,6 +53,8 @@ class Home extends Component {
   handleSearchQuery(searchQuery) {
     api.getCharitiesByQuery(searchQuery).then(result => {
       this.setState({
+        activeCharity: { name: "" },
+        activeCampaign: { title: "" },
         data: result
       });
     });
@@ -63,7 +63,7 @@ class Home extends Component {
   handleActiveCharity(activeCharityID) {
     this.setState({
       activeCharity: activeCharityID,
-      activeCampaign: { name: "" }
+      activeCampaign: { title: "" }
     });
     api.getCharity(activeCharityID).then(result => {
       this.setState({
@@ -73,9 +73,7 @@ class Home extends Component {
   }
 
   handleActiveCampaign(activeCampaignID) {
-    const activeCampaign = this.state.activeCharity._campaigns.find(
-      campaign => campaign._id === activeCampaignID
-    );
+    const activeCampaign = this.state.activeCharity._campaigns.find(campaign => campaign._id === activeCampaignID);
 
     this.setState({
       activeCampaign
