@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Row, Col, Container } from "reactstrap";
-import { Route } from "react-router-dom";
 import Search from "./Search";
 import CharityList from "./Charity/CharityList";
 import CampaignList from "./Campaign/CampaignList";
@@ -11,8 +10,8 @@ class Home extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: [{ name: "" }],
-      activeCharity: { name: "" },
+      data: [{ name: "", _id: "" }],
+      activeCharity: { name: "", _id: "" },
       activeCampaign: { title: "" }
     };
   }
@@ -49,10 +48,17 @@ class Home extends Component {
 
   handleSearchQuery(searchQuery) {
     api.getCharitiesByQuery(searchQuery).then(result => {
+      const data = result.map(elem => {
+        if (elem._charity !== undefined) {
+          return elem._charity;
+        } else {
+          return elem;
+        }
+      });
       this.setState({
-        activeCharity: { name: "" },
+        activeCharity: { name: "", _id: "" },
         activeCampaign: { title: "" },
-        data: result
+        data
       });
     });
   }
