@@ -10,10 +10,8 @@ class MaterialList extends Component {
 
     if (data) {
       data.forEach((material, i) => {
-        const materialCard = (
-          <MaterialCard data={material} key={material._id} />
-        );
-
+        const materialCard = <MaterialCard data={material} key={material._id} />;
+        // I'm certain there's a better way to do this
         if (i % 2 === 0) leftMaterialColumn.push(materialCard);
         else rightMaterialColumn.push(materialCard);
       });

@@ -25,9 +25,6 @@ class Home extends Component {
           data: result
         });
 
-        // persist through refreshes + allow for link sharing
-        // to do: why doesn't this.props.match.params work? -> probably because I'm not actually using ReactRouter routes
-
         const pathname = this.props.location.pathname;
 
         if (pathname !== "/") {

@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL:
-    process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3030/api"
+  baseURL: process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3030/api"
 });
 
 const errHandler = err => {
@@ -92,15 +91,11 @@ export default {
     });
 
     return service
-      .post(
-        `/charities/${data._charity}/campaigns/${data._campaign}/materials/add`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
+      .post(`/charities/${data._charity}/campaigns/${data._campaign}/materials/add`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
         }
-      )
+      })
       .then(res => res.data)
       .catch(errHandler);
   },

@@ -11,8 +11,6 @@ var router = express.Router();
 router.get("/", (req, res, next) => {
   let keys = Object.keys(req.query);
 
-  // this is the simplified model:
-
   if (keys.includes("sector")) {
     Charity.find({ sector: req.query.sector })
       .populate({
